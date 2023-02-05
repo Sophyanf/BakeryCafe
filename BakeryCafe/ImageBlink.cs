@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -10,25 +11,26 @@ namespace BakeryCafe
 {
     internal class ImageBlink
     {
-        public PictureBox PictureBox;
+       
         public ImageList ImageList;
+        public Image image;
 
 
-        public ImageBlink(PictureBox pictureBox, ImageList imageList)
+        public ImageBlink(ImageList imageList)
         {
-            PictureBox = pictureBox;
             ImageList = imageList;
         }
 
-        public void ChangeIm()
+        public Image ChangeIm()
         {
             Random random = new Random();
             int showIm = random.Next(0, 2);
-            if (showIm == 0) { PictureBox.Image = null; }
+            if (showIm == 0) { image = null; }
             else
             {
-                PictureBox.Image = ImageList.Images[random.Next(0, ImageList.Images.Count)];
+               image = ImageList.Images[random.Next(0, ImageList.Images.Count)];
             }
+            return image;
         }
 
         
