@@ -5,40 +5,32 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
-
-
 
 namespace BakeryCafe
 {
-    public partial class Bakery : Form
+    public partial class UserControl1 : UserControl
     {
         ImageBlink imageBlink;
-        List<PictureBox> pictureBoxes ;
-       
-        public Bakery()
+        List<PictureBox> pictureBoxes;
+        public UserControl1()
         {
+            InitializeComponent();
             InitializeComponent();
             pictureBoxes = new List<PictureBox> { pictureBox2, pictureBox3, pictureBox4, pictureBox5, pictureBox6, pictureBox7 };
             imageBlink = new ImageBlink(imageList1);
         }
-
-        private void Bakery_Load(object sender, EventArgs e)
-        {
-            foreach (var pictureBox in pictureBoxes) { 
-            ThreadPool.QueueUserWorkItem(BlincIm, pictureBox);
-                
-            }
-        }
+      
 
         public void BlincIm(object x)
         {
             try
             {
                 PictureBox pb = (PictureBox)x;
-                while (true) {
+                while (true)
+                {
                     this.Invoke(new Action(() => pb.Image = ChangeIm()));
                     Thread.Sleep(1000);
                 }
@@ -53,8 +45,8 @@ namespace BakeryCafe
 
         public Image ChangeIm()
         {
-             Image image;
-        Random random = new Random();
+            Image image;
+            Random random = new Random();
             int showIm = random.Next(0, 2);
 
             if (showIm == 0) { image = null; }
@@ -67,10 +59,15 @@ namespace BakeryCafe
         }
         private void timerPicture_Tick(object x, EventArgs e)
         {
-          //  this.Invoke(new Action(() => label1.Text = i.ToString()));
+            //  this.Invoke(new Action(() => label1.Text = i.ToString()));
         }
-              
+        private void UserControl1_Load(object sender, EventArgs e)
+        {
+            foreach (var pictureBox in pictureBoxes)
+            {
+                ThreadPool.QueueUserWorkItem(BlincIm, pictureBox);
 
-     
+            }
+        }
     }
 }

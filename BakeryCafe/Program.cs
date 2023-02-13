@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BakeryCafe.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace BakeryCafe
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Bakery());
+            Application.Run(new StartForm());
         }
     }
 }
