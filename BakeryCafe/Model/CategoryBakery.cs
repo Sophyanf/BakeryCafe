@@ -11,5 +11,6 @@ namespace BakeryCafe.Model
         public int ID { get; set; }
         public string CategoryName { get; set; }
         public decimal AveragePrice { get; set; }   
+        public IEnumerable<Product> Prodacts { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace BakeryCafe.Model
         public int weight { get; set; }
         public decimal price { get; set; }
         public CategoryBakery Category { get; set; }
-
+        public IEnumerable<Manufacturer> ManufacturerList { get; set; }
     }
+
 }

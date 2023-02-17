@@ -96,5 +96,11 @@ namespace BakeryCafe.View
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+             Form ifrm = new AdminForm();
+             ifrm.Show(); // отображаем Form2
+        }
     }
 }
