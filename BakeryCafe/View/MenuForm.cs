@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace BakeryCafe.View
 {
-    public partial class AdminForm : BakeryCafe.View.StartForm
+    public partial class MenuForm : BakeryCafe.View.StartForm
     {
-        public AdminForm()
+        public MenuForm()
         {
             InitializeComponent();
         }

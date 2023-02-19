@@ -7,9 +7,9 @@ using System.Data.Entity;
 
 namespace BakeryCafe.Model
 {
-    internal class AddDbContext : DbContext
+    internal class AppDbContext : DbContext
     {
-        public AddDbContext () : base("DefaultConnection")
+        public AppDbContext () : base("DefaultConnection")
         {
 
         }

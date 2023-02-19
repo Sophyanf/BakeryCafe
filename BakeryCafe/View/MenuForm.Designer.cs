@@ -1,6 +1,6 @@
 ﻿namespace BakeryCafe.View
 {
-   public partial class AdminForm
+   public partial class MenuForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -28,31 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(567, 256);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(137, 21);
-            this.comboBox1.TabIndex = 11;
             // 
             // AdminForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(1188, 761);
-            this.Controls.Add(this.comboBox1);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.ClientSize = new System.Drawing.Size(1584, 937);
+            this.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.Name = "AdminForm";
             this.Load += new System.EventHandler(this.AdminForm_Load);
-            this.Controls.SetChildIndex(this.comboBox1, 0);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
