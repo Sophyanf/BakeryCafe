@@ -7,13 +7,13 @@ namespace BakeryCafe.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class InitialCreat : IMigrationMetadata
+    public sealed partial class InitionCreate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreat));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitionCreate));
         
         string IMigrationMetadata.Id
         {
-            get { return "202302171311118_InitialCreat"; }
+            get { return "202302172052498_InitionCreate"; }
         }
         
         string IMigrationMetadata.Source

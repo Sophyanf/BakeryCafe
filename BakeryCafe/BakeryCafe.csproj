@@ -57,9 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImageBlink.cs" />
-    <Compile Include="Migrations\202302171311118_InitialCreat.cs" />
-    <Compile Include="Migrations\202302171311118_InitialCreat.designer.cs">
-      <DependentUpon>202302171311118_InitialCreat.cs</DependentUpon>
+    <Compile Include="Migrations\202302172052498_InitionCreate.cs" />
+    <Compile Include="Migrations\202302172052498_InitionCreate.designer.cs">
+      <DependentUpon>202302172052498_InitionCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\AddDbContext.cs" />
@@ -80,8 +80,8 @@
     <Compile Include="View\StartForm.Designer.cs">
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Migrations\202302171311118_InitialCreat.resx">
-      <DependentUpon>202302171311118_InitialCreat.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202302172052498_InitionCreate.resx">
+      <DependentUpon>202302172052498_InitionCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
