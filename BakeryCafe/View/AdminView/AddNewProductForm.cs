@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BakeryCafe.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +14,7 @@ namespace BakeryCafe.View.AdminView
 {
     public partial class AddNewProductForm : Form
     {
+        private DataProductController data = DataProductController.Instance;
         public AddNewProductForm()
         {
             InitializeComponent();
@@ -29,6 +31,15 @@ namespace BakeryCafe.View.AdminView
         private void AddNewProduct_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private async void categoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           (await data.GetCategoryBakeryAsync()).ForEach(c => categoryComboBox.Items.Add(c));
+        }
+        private async void manufCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            (await data.GetCategoryBakeryAsync()).ForEach(c => categoryComboBox.Items.Add(c));
         }
     }
 }

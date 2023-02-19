@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace BakeryCafe.Model
 {
-    internal class IDataProduct
+    public class IDataProduct
     {
+      
     }
 }

@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace BakeryCafe.Controllers
 {
-    internal class DataProdactController
+    internal class ProductController
     {
         private readonly AppDbContext _context;
-        public static DataProdactController Instance { get => ProductControllerCreate.instance; }
-        private DataProdactController()
+        public static ProductController Instance { get => ProductControllerCreate.instance; }
+        private ProductController()
         {
             _context = new AppDbContext();
         }
         private class ProductControllerCreate
         {
             static ProductControllerCreate() { }
-            internal static readonly DataProdactController instance = new ProductController();
+            internal static readonly ProductController instance = new ProductController();
         }
 
         public async Task<bool> AddClient(Client client, Manager manager)

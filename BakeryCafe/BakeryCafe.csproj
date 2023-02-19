@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\DataProductController.cs" />
     <Compile Include="ImageBlink.cs" />
     <Compile Include="Migrations\202302172052498_InitionCreate.cs" />
     <Compile Include="Migrations\202302172052498_InitionCreate.designer.cs">
@@ -65,6 +66,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\AppDbContext.cs" />
     <Compile Include="Model\CategoryBakery.cs" />
+    <Compile Include="Model\IDataProduct.cs" />
     <Compile Include="Model\Manufacturer.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Program.cs" />

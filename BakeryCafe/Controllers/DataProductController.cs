@@ -7,29 +7,28 @@ using System.Threading.Tasks;
 
 namespace BakeryCafe.Controllers
 {
-    internal class ProductController
+    internal class DataProductController : IDataProduct
     {
         private readonly AppDbContext _context;
-        public static ProductController Instance { get => ProductControllerCreate.instance; }
-        private ProductController()
+        public static DataProductController Instance { get => DataProdactControllerCreate.instance; }
+        private DataProductController()
         {
             _context = new AppDbContext();
         }
-        private class ProductControllerCreate
+        private class DataProdactControllerCreate
         {
-            static ProductControllerCreate() { }
-            internal static readonly ProductController instance = new ProductController();
+            static DataProdactControllerCreate() { }
+            internal static readonly DataProductController instance = new DataProductController();
         }
 
-        public async Task<bool> AddClient(Client client, Manager manager)
+        public async Task<List<CategoryBakery>> GetCategoryBakeryAsync()
         {
-            _context.Managers.Include("Clients").FirstOrDefault(m => m.Id == manager.Id).Clients.Add(client);
-            int res = await _context.SaveChangesAsync();
-            if (res == 0)
-            {
-                return false;
-            }
-            return true;
+            List<CategoryBakery> result = null;
+            await Task.Run(() =>
+            {   
+                result = _context.Categories.Include("Services").ToList();
+            });
+            return result;
         }
     }
 }
