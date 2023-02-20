@@ -1,4 +1,5 @@
 ﻿using BakeryCafe.Controllers;
+using BakeryCafe.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,8 @@ namespace BakeryCafe.View.AdminView
     public partial class AddNewProductForm : Form
     {
         private DataProductController data = DataProductController.Instance;
+        private ProductController dataProduct = ProductController.Instance;
+
         public AddNewProductForm()
         {
             InitializeComponent();
@@ -40,6 +43,42 @@ namespace BakeryCafe.View.AdminView
         private async void manufCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             (await data.GetCategoryBakeryAsync()).ForEach(c => categoryComboBox.Items.Add(c));
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            var category = await data.GetCategoryBakeryAsync();
+            Product newProduct = new Product()
+            {
+                productName = textBox1.Text,
+                weight = (int)numericUpDown1.Value,
+                price = numericUpDown2.Value
+            };
+            if (category == null)
+            {
+                CategoryBakery newCategory = new CategoryBakery()
+                {
+                    CategoryName = categoryComboBox.Text,
+                };
+                newCategory.Products.Add(newProduct);
+                var result = await data.AddServiceCategoryAsync(newCategory);
+                if (result == false)
+                {
+                    MessageBox.Show("Что-то пошло не так!!! Проверьте категорию или услугу");
+                    return;
+                }
+            }
+            else
+            {
+                var result = await dataProduct.AddProductAsync(newProduct);
+                if (result == false)
+                {
+                    MessageBox.Show("Что-то пошло не так!!! Проверьте услугу");
+                    return;
+                }
+            }
+            categoryComboBox.Items.Add(await data.GetCategoryBakeryAsync());
+            categoryComboBox.Text = "";
         }
     }
 }

@@ -21,15 +21,18 @@ namespace BakeryCafe.Controllers
             internal static readonly ProductController instance = new ProductController();
         }
 
-        public async Task<bool> AddClient(Client client, Manager manager)
+        public async Task<bool> AddProductAsync(Product product)
         {
-            _context.Managers.Include("Clients").FirstOrDefault(m => m.Id == manager.Id).Clients.Add(client);
-            int res = await _context.SaveChangesAsync();
-            if (res == 0)
+            try
+            {
+                _context.Products.Add(product);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
             {
                 return false;
             }
-            return true;
         }
     }
 }
