@@ -63,6 +63,14 @@
     <Compile Include="Migrations\202302172052498_InitionCreate.designer.cs">
       <DependentUpon>202302172052498_InitionCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202302211214285_newMigration.cs" />
+    <Compile Include="Migrations\202302211214285_newMigration.designer.cs">
+      <DependentUpon>202302211214285_newMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202302211404540_newMigration1.cs" />
+    <Compile Include="Migrations\202302211404540_newMigration1.designer.cs">
+      <DependentUpon>202302211404540_newMigration1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\AppDbContext.cs" />
     <Compile Include="Model\CategoryBakery.cs" />
@@ -97,6 +105,12 @@
     </Compile>
     <EmbeddedResource Include="Migrations\202302172052498_InitionCreate.resx">
       <DependentUpon>202302172052498_InitionCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302211214285_newMigration.resx">
+      <DependentUpon>202302211214285_newMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302211404540_newMigration1.resx">
+      <DependentUpon>202302211404540_newMigration1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

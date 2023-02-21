@@ -21,12 +21,21 @@ namespace BakeryCafe.Controllers
             internal static readonly DataProductController instance = new DataProductController();
         }
 
+        public async Task<CategoryBakery> GetCategoryAsync(string name)
+        {
+            CategoryBakery result = null;
+            await Task.Run(() =>
+            {
+                result = _context.CategoryBakeries.Include("Products").FirstOrDefault(s => s.CategoryName == name);
+            });
+            return result;
+        }
         public async Task<List<CategoryBakery>> GetCategoryBakeryAsync()
         {
             List<CategoryBakery> result = null;
             await Task.Run(() =>
-            {   
-                result = _context.Categories.Include("Services").ToList();
+            {
+                result = _context.CategoryBakeries.Include("Products").ToList();
             });
             return result;
         }
@@ -40,11 +49,11 @@ namespace BakeryCafe.Controllers
             return result;
         }
 
-        public async Task<bool> AddServiceCategoryAsync(CategoryBakery serviceCategory)
+        public async Task<bool> AddCategoryAsync(CategoryBakery category)
         {
             try
             {
-                _context.Categories.Add(serviceCategory);
+                _context.CategoryBakeries.Add(category);
                 await _context.SaveChangesAsync();
                 return true;
             }

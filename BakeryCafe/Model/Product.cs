@@ -12,7 +12,7 @@ namespace BakeryCafe.Model
         public string productName { get; set; }
         public int weight { get; set; }
         public decimal price { get; set; }
-        public CategoryBakery CategoryBakerys { get; set; }
+       //public CategoryBakery CategoryBakerys { get; set; }
         public ICollection<Manufacturer> Manufacturers { get; set; }
     }
 

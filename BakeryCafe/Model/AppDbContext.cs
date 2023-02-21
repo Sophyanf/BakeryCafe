@@ -14,7 +14,7 @@ namespace BakeryCafe.Model
 
         }
         public DbSet<Product> Products { get; set; }
-        public DbSet<CategoryBakery> Categories { get; set; }
+        public DbSet<CategoryBakery> CategoryBakeries { get; set; }
         public DbSet<Manufacturer>  Manufacturer { get; set; }
     }
 }
