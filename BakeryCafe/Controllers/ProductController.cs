@@ -21,11 +21,11 @@ namespace BakeryCafe.Controllers
             internal static readonly ProductController instance = new ProductController();
         }
 
-        public async Task<bool> AddProductAsync(Product product)
+        public async Task<bool> AddProductAsync(Product product, CategoryBakery category)
         {
             try
             {
-                _context.Products.Add(product);
+                _context.CategoryBakeries.Include("Products").FirstOrDefault(c => c.ID == category.ID).Products.Add(product);
                 await _context.SaveChangesAsync();
                 return true;
             }

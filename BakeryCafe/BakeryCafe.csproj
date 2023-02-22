@@ -71,6 +71,10 @@
     <Compile Include="Migrations\202302211404540_newMigration1.designer.cs">
       <DependentUpon>202302211404540_newMigration1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202302220905048_correctTabls.cs" />
+    <Compile Include="Migrations\202302220905048_correctTabls.designer.cs">
+      <DependentUpon>202302220905048_correctTabls.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\AppDbContext.cs" />
     <Compile Include="Model\CategoryBakery.cs" />
@@ -111,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202302211404540_newMigration1.resx">
       <DependentUpon>202302211404540_newMigration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302220905048_correctTabls.resx">
+      <DependentUpon>202302220905048_correctTabls.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
