@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BakeryCafe.Controllers
 {
@@ -48,38 +49,50 @@ namespace BakeryCafe.Controllers
             }
             
         }
-        public async Task<List<IDataProduct>> GetDataProductAsync(string dataName)
+        public async Task<IDataProduct> GetProductCategoryAsync(string dataName, string dataType)
         {
-            List<IDataProduct> result = null;
-            switch (dataName)
+            IDataProduct result = null;
+            switch (dataType)
             {
                 case "categoryBakery":
-                    
+
                     await Task.Run(() =>
                     {
-                       List <CategoryBakery> category = null;
-                        category = _context.CategoryBakeries.Include("Products").ToList();
+                        result = _context.CategoryBakeries.Include("Products").FirstOrDefault(s => s.CategoryName == dataName);
+                        //result = _context.CategoryBakeries.Include("Products").Include("Services.Registrations").FirstOrDefault(s => s.CategoryName == categoryName);
+
                     });
                     return result;
 
                 case "manufacturer":
                     await Task.Run(() =>
                     {
-                        result = _context.Manufacturer.Include("Products").ToList();
+                        result = _context.Manufacturer.Include("Products").FirstOrDefault(s => s.ManufacturerName == dataName);
                     });
-                    return null;
+                    return result;
 
                 default:
                     return result;
             }
-          
         }
+
+        public async Task<List<CategoryBakery>> GetCategoryAsync()
+        {
+            List<CategoryBakery> result = null;
+            
+                    await Task.Run(() =>
+                    {
+                        result = _context.CategoryBakeries.Include("Products").ToList();
+                    });
+                    return result;
+        }
+          
         public async Task<List<Manufacturer>> GetManufAsync()
         {
             List<Manufacturer> result = null;
             await Task.Run(() =>
             {
-                result = _context.Manufacturer.Include("Services").ToList();
+                result = _context.Manufacturer.Include("Products").ToList();
             });
             return result;
         }
@@ -98,5 +111,31 @@ namespace BakeryCafe.Controllers
                 return false;
             }
         }
+        public async Task<bool> AddDataProdAsync(IDataProduct obj)
+        {
+            try
+            {
+                if (obj is CategoryBakery)
+                {
+                  var  category = obj as CategoryBakery;
+                    _context.CategoryBakeries.Add(category);
+                }
+                else if (obj is Manufacturer)
+                {
+                    var manufacturer = obj as Manufacturer;
+                    _context.Manufacturer.Add(manufacturer);
+                }
+
+                await _context.SaveChangesAsync();
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+       
     }
 }

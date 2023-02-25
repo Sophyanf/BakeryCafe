@@ -59,21 +59,13 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\DataProductController.cs" />
     <Compile Include="ImageBlink.cs" />
-    <Compile Include="Migrations\202302172052498_InitionCreate.cs" />
-    <Compile Include="Migrations\202302172052498_InitionCreate.designer.cs">
-      <DependentUpon>202302172052498_InitionCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202302221601555_InitialDB.cs" />
+    <Compile Include="Migrations\202302221601555_InitialDB.designer.cs">
+      <DependentUpon>202302221601555_InitialDB.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202302211214285_newMigration.cs" />
-    <Compile Include="Migrations\202302211214285_newMigration.designer.cs">
-      <DependentUpon>202302211214285_newMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202302211404540_newMigration1.cs" />
-    <Compile Include="Migrations\202302211404540_newMigration1.designer.cs">
-      <DependentUpon>202302211404540_newMigration1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202302220905048_correctTabls.cs" />
-    <Compile Include="Migrations\202302220905048_correctTabls.designer.cs">
-      <DependentUpon>202302220905048_correctTabls.cs</DependentUpon>
+    <Compile Include="Migrations\202302250837164_dateProd.cs" />
+    <Compile Include="Migrations\202302250837164_dateProd.designer.cs">
+      <DependentUpon>202302250837164_dateProd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\AppDbContext.cs" />
@@ -107,17 +99,11 @@
     <Compile Include="View\StartForm.Designer.cs">
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Migrations\202302172052498_InitionCreate.resx">
-      <DependentUpon>202302172052498_InitionCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202302221601555_InitialDB.resx">
+      <DependentUpon>202302221601555_InitialDB.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202302211214285_newMigration.resx">
-      <DependentUpon>202302211214285_newMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202302211404540_newMigration1.resx">
-      <DependentUpon>202302211404540_newMigration1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202302220905048_correctTabls.resx">
-      <DependentUpon>202302220905048_correctTabls.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202302250837164_dateProd.resx">
+      <DependentUpon>202302250837164_dateProd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

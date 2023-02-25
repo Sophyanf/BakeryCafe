@@ -12,6 +12,6 @@ namespace BakeryCafe.Model
         public string ManufacturerName { get; set; }
         public decimal AveragePriceMan { get; set; }
         public ICollection<Product> Products { get; set; }
-        public CategoryBakery CategoryBakery { get; set; }
+        public ICollection<CategoryBakery> CategoryBakery { get; set; }
     }
 }
