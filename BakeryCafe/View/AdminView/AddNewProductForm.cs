@@ -24,6 +24,7 @@ namespace BakeryCafe.View.AdminView
         public AddNewProductForm()
         {
             InitializeComponent();
+            dateTimePicker1.MinDate = DateTime.Today.AddDays(-5);
         }
 
         private async void AddNewProduct_Load(object sender, EventArgs e)
@@ -34,8 +35,8 @@ namespace BakeryCafe.View.AdminView
             manyfComboBox.Text = "";
             toolTip1.SetToolTip(categoryComboBox, "Если в списке нет нужной категории, введите наименование новой категории");
             toolTip1.SetToolTip(manyfComboBox, "Если в списке нет нужного производителя, введите наименование нового производителя");
-            (await data.GetCategoryAsync()).ForEach(c => categoryComboBox.Items.Add(c.CategoryName));
-            (await data.GetManufAsync()).ForEach(c => manyfComboBox.Items.Add(c.ManufacturerName));
+            (await data.GetCategoryAsync()).ForEach(c => categoryComboBox.Items.Add(c.CategoryName)); // заменить на GetDataProductAsync(string dataType) ЕСЛИ ПОЛУЧИТСЯ
+            (await data.GetManufAsync()).ForEach(c => manyfComboBox.Items.Add(c.ManufacturerName)); // заменить на GetDataProductAsync(string dataType) ЕСЛИ ПОЛУЧИТСЯ
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -47,7 +48,7 @@ namespace BakeryCafe.View.AdminView
                 productName = textBox1.Text,
                 weight = (int)numericUpDown1.Value,
                 price = numericUpDown2.Value,
-                dateOfManuf = DateTime.Today
+                dateOfManuf = dateTimePicker1.Value
         };
 
             if (category == null) // если категории нет

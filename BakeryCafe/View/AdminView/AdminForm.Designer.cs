@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.manufComboBox = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -38,8 +40,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.categoryComboBox = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.manufComboBox = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -74,7 +74,27 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Ввод и редактирование изделий";
             this.tabPage1.UseVisualStyleBackColor = true;
-            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(690, 230);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(140, 22);
+            this.label1.TabIndex = 11;
+            this.label1.Tag = "";
+            this.label1.Text = "Производитель";
+            // 
+            // manufComboBox
+            // 
+            this.manufComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.manufComboBox.FormattingEnabled = true;
+            this.manufComboBox.Location = new System.Drawing.Point(694, 255);
+            this.manufComboBox.Name = "manufComboBox";
+            this.manufComboBox.Size = new System.Drawing.Size(192, 24);
+            this.manufComboBox.TabIndex = 10;
+            this.manufComboBox.SelectedIndexChanged += new System.EventHandler(this.manufComboBox_SelectedIndexChanged);
             // 
             // button3
             // 
@@ -104,9 +124,9 @@
             this.listBox1.BackColor = System.Drawing.Color.PapayaWhip;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(656, 309);
+            this.listBox1.Location = new System.Drawing.Point(443, 309);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(242, 164);
+            this.listBox1.Size = new System.Drawing.Size(455, 340);
             this.listBox1.TabIndex = 7;
             // 
             // button1
@@ -153,26 +173,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Просмотр отчетов";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(690, 230);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(140, 22);
-            this.label1.TabIndex = 11;
-            this.label1.Tag = "";
-            this.label1.Text = "Производитель";
-            // 
-            // manufComboBox
-            // 
-            this.manufComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.manufComboBox.FormattingEnabled = true;
-            this.manufComboBox.Location = new System.Drawing.Point(694, 255);
-            this.manufComboBox.Name = "manufComboBox";
-            this.manufComboBox.Size = new System.Drawing.Size(192, 24);
-            this.manufComboBox.TabIndex = 10;
             // 
             // AdminForm
             // 

@@ -34,6 +34,7 @@ namespace BakeryCafe.View
             (await data.GetCategoryAsync()).ForEach(c => categoryComboBox.Items.Add(c.CategoryName));
             (await data.GetManufAsync()).ForEach(c => manufComboBox.Items.Add(c.ManufacturerName));
             categoryComboBox.SelectedIndex = 0;
+            manufComboBox.SelectedIndex = 0;
            
         }
         private void button1_Click(object sender, EventArgs e)
@@ -48,23 +49,53 @@ namespace BakeryCafe.View
 
         private async void categoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (categoryComboBox.SelectedIndex == 0)
+               if (categoryComboBox.SelectedIndex == 0)
+                {
+                    listBox1.Items.Clear();
+                    (await dataProduct.GetProductAsync("")).ForEach(c => listBox1.Items.Add(c.ToString()));
+                }
+                else
+                {
+                    listBox1.Items.Clear();
+
+                listBox1.Items.Clear();
+                var products = filter(categoryComboBox.Text, manufComboBox.Text);
+                foreach (var product in products)
+                {
+                    listBox1.Items.Add(product.ToString());
+                }
+            }
+        }
+
+     
+        private void manufComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (manufComboBox.SelectedIndex == 0)
             {
                 listBox1.Items.Clear();
-                (await dataProduct.GetProductAsync("")).ForEach(c => listBox1.Items.Add(c.ToString()));
+                manufComboBox.SelectedIndexChanged += categoryComboBox_SelectedIndexChanged;
             }
             else
             {
                 listBox1.Items.Clear();
-
-                ((CategoryBakery)await data.GetProductCategoryAsync(categoryComboBox.Text, categoryData)).Products.ToList().ForEach(p => listBox1.Items.Add(p));
+                var products = filter(categoryComboBox.Text, manufComboBox.Text);
+                foreach (var product in products)
+                {
+                    listBox1.Items.Add(product.ToString());
+                }
+                /* listBox1.Items.Clear();
+                 var products = filter(categoryComboBox.Text, manufComboBox.Text);
+                 foreach (var product in products)
+                 {
+                     listBox1.Items.Add(product.ToString());
+                 }*/
             }
-           
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
+        private List<Product> filter(String category, String manuf)
         {
-
+            if (manuf == "Все производители") manuf= "";
+            return dataProduct.load(category, manuf);
         }
     }
 }

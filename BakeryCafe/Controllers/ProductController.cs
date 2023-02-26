@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BakeryCafe.Controllers
@@ -40,7 +41,7 @@ namespace BakeryCafe.Controllers
         public async Task<List<Product>> GetProductAsync(string DataName)
         {
             List<Product> result = null;
-
+            
             await Task.Run(() =>
             {
                 if (DataName == "")
@@ -58,5 +59,28 @@ namespace BakeryCafe.Controllers
             });
             return result;
         }
+        public List<Product> load(String category, String manuf)
+        {
+
+            return _context.Products
+                .Include("CategoryBakerys")
+                .Include("Manufacturers")
+                .Where(p => p.Manufacturers.Any(m => m.ManufacturerName.Contains(manuf)) && p.CategoryBakerys.CategoryName == category)
+                .ToList();
+            /*var query = from p in _context.Set<Product>()
+                        join m in _context.Set<Manufacturer>()
+                        on m equals p
+                        where (category == null || p.CategoryBakerys.CategoryName.Contains(category))
+                        
+                        select p;
+            return query.ToList();*/
+        }
+    
+
+    public DateTime dateOfProduct ()
+        {
+            Thread.Sleep(10);
+            return DateTime.Today.AddDays(-(new Random().Next(0,5)));
+        }
     }
-}
+} 

@@ -1,6 +1,7 @@
 ﻿using BakeryCafe.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace BakeryCafe.Controllers
         private readonly AppDbContext _context;
         public static DataProductController Instance { get => DataProdactControllerCreate.instance; }
 
-      
+
 
         private DataProductController()
         {
@@ -36,7 +37,7 @@ namespace BakeryCafe.Controllers
                     {
                         result = _context.CategoryBakeries.Include("Products").FirstOrDefault(s => s.CategoryName == name);
                     });
-                    return result; 
+                    return result;
 
                 case "manufacturer":
                     await Task.Run(() =>
@@ -45,9 +46,9 @@ namespace BakeryCafe.Controllers
                     });
                     return result;
 
-                    default: return result;
+                default: return result;
             }
-            
+
         }
         public async Task<IDataProduct> GetProductCategoryAsync(string dataName, string dataType)
         {
@@ -79,14 +80,14 @@ namespace BakeryCafe.Controllers
         public async Task<List<CategoryBakery>> GetCategoryAsync()
         {
             List<CategoryBakery> result = null;
-            
-                    await Task.Run(() =>
-                    {
-                        result = _context.CategoryBakeries.Include("Products").ToList();
-                    });
-                    return result;
+
+            await Task.Run(() =>
+            {
+                result = _context.CategoryBakeries.Include("Products").ToList();
+            });
+            return result;
         }
-          
+
         public async Task<List<Manufacturer>> GetManufAsync()
         {
             List<Manufacturer> result = null;
@@ -117,7 +118,7 @@ namespace BakeryCafe.Controllers
             {
                 if (obj is CategoryBakery)
                 {
-                  var  category = obj as CategoryBakery;
+                    var category = obj as CategoryBakery;
                     _context.CategoryBakeries.Add(category);
                 }
                 else if (obj is Manufacturer)
@@ -136,6 +137,33 @@ namespace BakeryCafe.Controllers
                 return false;
             }
         }
-       
+        /*   public async Task<List<IDataProduct>> GetDataProductAsync(string dataType) // вместо GetCategoryAsync() и GetManufAsync()
+           {
+               List<IDataProduct> result = null;
+
+               switch (dataType)
+               {
+                   case "categoryBakery":
+
+                       await Task.Run(() =>
+                       {
+                           result = (CategoryBakery)_context.CategoryBakeries.Include("Products").ToList(); // c распаковкой тоже не получается
+                           //result = _context.CategoryBakeries.Include("Products").Include("Services.Registrations").FirstOrDefault(s => s.CategoryName == categoryName);
+
+                       });
+                       return result;
+
+                   case "manufacturer":
+                       await Task.Run(() =>
+                       {
+                           result = _context.CategoryBakeries.Include("Products").ToList();
+                       });
+                       return result;
+
+                   default:
+                       return result;
+               }
+           }*/
     }
+      
 }

@@ -13,5 +13,12 @@ namespace BakeryCafe.Model
         public decimal AveragePriceMan { get; set; }
         public ICollection<Product> Products { get; set; }
         public ICollection<CategoryBakery> CategoryBakery { get; set; }
+        
+        public override string ToString()
+        {
+            return ManufacturerName;
+        }
     }
+
+
 }
