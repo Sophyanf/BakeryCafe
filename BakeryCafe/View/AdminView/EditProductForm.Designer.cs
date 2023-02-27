@@ -28,26 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // dateTimePicker1
+            // button2
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(248, 45);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 22);
-            this.dateTimePicker1.TabIndex = 19;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.Location = new System.Drawing.Point(76, 372);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(158, 42);
+            this.button2.TabIndex = 21;
+            this.button2.Text = "РЕДАКТИРОВАТЬ";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // EditProductForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(460, 367);
-            this.Controls.Add(this.dateTimePicker1);
+            this.ClientSize = new System.Drawing.Size(329, 429);
+            this.Controls.Add(this.button2);
             this.Name = "EditProductForm";
             this.Text = "EditProductForm";
             this.Load += new System.EventHandler(this.EditProductForm_Load);
-            this.Controls.SetChildIndex(this.dateTimePicker1, 0);
+            this.Controls.SetChildIndex(this.button2, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -55,6 +58,6 @@
 
         #endregion
 
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Button button2;
     }
 }

@@ -97,6 +97,11 @@ namespace BakeryCafe.View
             if (manuf == "Все производители") manuf= "";
             return dataProduct.load(category, manuf);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            new EditProductForm(listBox1.SelectedItem as Product).ShowDialog();
+        }
     }
 }
 

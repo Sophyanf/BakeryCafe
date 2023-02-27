@@ -248,20 +248,19 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox manyfComboBox;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox categoryComboBox;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Label label6;
+        protected System.Windows.Forms.Button button1;
+        protected System.Windows.Forms.Label label3;
+        protected System.Windows.Forms.ComboBox manyfComboBox;
+        protected System.Windows.Forms.Label label2;
+        protected System.Windows.Forms.ComboBox categoryComboBox;
+        protected System.Windows.Forms.TextBox textBox1;
+        protected System.Windows.Forms.Label label1;
+        protected System.Windows.Forms.Label label4;
+        protected System.Windows.Forms.NumericUpDown numericUpDown1;
+        protected System.Windows.Forms.NumericUpDown numericUpDown2;
+        protected System.Windows.Forms.Label label5;
+        protected System.Windows.Forms.DateTimePicker dateTimePicker1;
+        protected System.Windows.Forms.Label label6;
     }
 }

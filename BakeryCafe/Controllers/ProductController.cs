@@ -58,8 +58,18 @@ namespace BakeryCafe.Controllers
                 }
             });
             return result;
+
         }
-        public List<Product> load(String category, String manuf)
+        public async Task<Product> GetOneProductAsync(Product product)
+        {
+            Product rez = null;
+            await Task.Run(() =>
+            {
+                rez = _context.Products.FirstOrDefault(p => p.ID == product.ID);
+            });
+            return product;
+        }
+            public List<Product> load(String category, String manuf)
         {
 
             return _context.Products
@@ -75,6 +85,8 @@ namespace BakeryCafe.Controllers
                         select p;
             return query.ToList();*/
         }
+
+
     
 
     public DateTime dateOfProduct ()
