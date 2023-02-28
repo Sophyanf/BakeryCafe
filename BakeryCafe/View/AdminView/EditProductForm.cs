@@ -31,7 +31,8 @@ namespace BakeryCafe.View.AdminView
         private async Task fillEditForm()
         {
             categoryComboBox.SelectedItem = await dataProduct.GetProductCategoryAsync(product);
-            data.GetManufAsync().
+            product.Manufacturers.ToList().ForEach(m => manyfComboBox.Text = m.ManufacturerName);
+           // manyfComboBox.Text = await data.GetProdManufAsync(product);
             textBox1.Text = product.productName;
             numericUpDown1.Value = product.weight;
             numericUpDown2.Value = product.price;

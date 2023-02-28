@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BakeryCafe.Controllers
 {
@@ -37,11 +38,11 @@ namespace BakeryCafe.Controllers
             }
         }
 
-        
+
         public async Task<List<Product>> GetProductAsync(string DataName)
         {
             List<Product> result = null;
-            
+
             await Task.Run(() =>
             {
                 if (DataName == "")
@@ -79,7 +80,7 @@ namespace BakeryCafe.Controllers
                 var listProdManeuf = _context.Products.Include("Manufacturers").Include("Products.Manufacturers").ToList();
                 foreach (var prod in listProdManeuf)
                 {
-                    if (prod.ID == product.ID) {prod.Manufacturers.}
+                    //if (prod.ID == product.ID) {prod.Manufacturers.}
                 }
             });
 
@@ -102,11 +103,13 @@ namespace BakeryCafe.Controllers
             return query.ToList();*/
         }
 
-        
-    public DateTime dateOfProduct ()
+
+        public DateTime dateOfProduct()
         {
             Thread.Sleep(10);
-            return DateTime.Today.AddDays(-(new Random().Next(0,5)));
+            return DateTime.Today.AddDays(-(new Random().Next(0, 5)));
         }
+
+        
     }
 } 

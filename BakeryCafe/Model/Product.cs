@@ -21,7 +21,7 @@ namespace BakeryCafe.Model
         public decimal price { get; set; }
         public DateTime dateOfManuf { get; set; }
         public CategoryBakery CategoryBakerys { get; set; }
-        public  ICollection<Manufacturer> Manufacturers { get; set; } // попробовать еще
+        public virtual  ICollection<Manufacturer> Manufacturers { get; set; } // попробовать еще
 
        
         public override string ToString()
@@ -31,9 +31,10 @@ namespace BakeryCafe.Model
             {
                 mans += manufacturer.ToString();
             }
-            return $"{productName} Вес: {weight} Цена: {price} Производитель: {mans}";
+            //return $"{productName} Вес: {weight} Цена: {price} Производитель: {mans}";
+            return $"{productName} Дата: {dateOfManuf} Производитель: {mans}";
         }
-       
+
     }
 
    
