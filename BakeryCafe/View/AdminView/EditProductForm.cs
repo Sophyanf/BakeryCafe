@@ -1,4 +1,5 @@
-﻿using BakeryCafe.Model;
+﻿using BakeryCafe.Controllers;
+using BakeryCafe.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,25 +15,34 @@ namespace BakeryCafe.View.AdminView
     public partial class EditProductForm : AddNewProductForm
     {
         Product product;
+        private ProductController dataProduct = ProductController.Instance;
+        private DataProductController data = DataProductController.Instance;
         public EditProductForm(Product product)
         {
             InitializeComponent();
             this.product = product;
         }
 
-        private void EditProductForm_Load(object sender, EventArgs e)
+        private  async void EditProductForm_Load(object sender, EventArgs e)
         {
-            categoryComboBox.Text = product.CategoryBakerys.CategoryName;
-            /*foreach (var item in categoryComboBox.Items)
-            {
-                if (item.ToString() == product.CategoryBakerys.CategoryName)
-                {
-                    categoryComboBox.SelectedItem = item;
-                }
-            }*/
-           
-            //   categoryComboBox.SelectedItem = categoryComboBox.Items.Equals(product.CategoryBakerys.CategoryName);
+            await fillEditForm();
+        }
 
+        private async Task fillEditForm()
+        {
+            categoryComboBox.SelectedItem = await dataProduct.GetProductCategoryAsync(product);
+            data.GetManufAsync().
+            textBox1.Text = product.productName;
+            numericUpDown1.Value = product.weight;
+            numericUpDown2.Value = product.price;
+            dateTimePicker1.MinDate = (await dataProduct.GetProductAsync("")).Min(p => p.dateOfManuf);
+            dateTimePicker1.Value = product.dateOfManuf;
+        }
+
+        protected override void button1_Click(object sender, EventArgs e)
+        {
+            base.button1_Click(sender, e);
+            this.EditProductForm_Load(sender, e);
         }
     }
 }

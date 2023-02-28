@@ -21,7 +21,7 @@ namespace BakeryCafe.Model
         public decimal price { get; set; }
         public DateTime dateOfManuf { get; set; }
         public CategoryBakery CategoryBakerys { get; set; }
-        public virtual ICollection<Manufacturer> Manufacturers { get; set; } // попробовать еще
+        public  ICollection<Manufacturer> Manufacturers { get; set; } // попробовать еще
 
        
         public override string ToString()

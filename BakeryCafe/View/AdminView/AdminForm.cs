@@ -24,6 +24,7 @@ namespace BakeryCafe.View
         public AdminForm()
         {
             InitializeComponent();
+            listBox1.TopIndex = listBox1.TopIndex + (vScrollBar1.Value - 5);
         }
 
         private async void AdminForm_Load(object sender, EventArgs e)
@@ -52,7 +53,7 @@ namespace BakeryCafe.View
                if (categoryComboBox.SelectedIndex == 0)
                 {
                     listBox1.Items.Clear();
-                    (await dataProduct.GetProductAsync("")).ForEach(c => listBox1.Items.Add(c.ToString()));
+                    (await dataProduct.GetProductAsync("")).ForEach(c => listBox1.Items.Add(c));
                 }
                 else
                 {
@@ -62,7 +63,7 @@ namespace BakeryCafe.View
                 var products = filter(categoryComboBox.Text, manufComboBox.Text);
                 foreach (var product in products)
                 {
-                    listBox1.Items.Add(product.ToString());
+                    listBox1.Items.Add(product);
                 }
             }
         }
@@ -81,7 +82,7 @@ namespace BakeryCafe.View
                 var products = filter(categoryComboBox.Text, manufComboBox.Text);
                 foreach (var product in products)
                 {
-                    listBox1.Items.Add(product.ToString());
+                    listBox1.Items.Add(product);
                 }
                 /* listBox1.Items.Clear();
                  var products = filter(categoryComboBox.Text, manufComboBox.Text);
@@ -100,7 +101,13 @@ namespace BakeryCafe.View
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new EditProductForm(listBox1.SelectedItem as Product).ShowDialog();
+           
+             new EditProductForm(listBox1.SelectedItem as Product).ShowDialog();
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

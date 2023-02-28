@@ -39,7 +39,7 @@ namespace BakeryCafe.View.AdminView
             (await data.GetManufAsync()).ForEach(c => manyfComboBox.Items.Add(c.ManufacturerName)); // заменить на GetDataProductAsync(string dataType) ЕСЛИ ПОЛУЧИТСЯ
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        protected virtual async void button1_Click(object sender, EventArgs e)
         {
             CategoryBakery category = (CategoryBakery)await data.CheckDataProductAsync(categoryComboBox.Text, categoryData); // проверяем есть ли уже категория
             Manufacturer manufacturer = (Manufacturer)await data.CheckDataProductAsync(manyfComboBox.Text, manufData);

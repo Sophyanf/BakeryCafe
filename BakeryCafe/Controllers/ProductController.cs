@@ -60,16 +60,32 @@ namespace BakeryCafe.Controllers
             return result;
 
         }
-        public async Task<Product> GetOneProductAsync(Product product)
+        public async Task<String> GetProductCategoryAsync(Product product)
         {
-            Product rez = null;
+            string rez = null;
             await Task.Run(() =>
             {
-                rez = _context.Products.FirstOrDefault(p => p.ID == product.ID);
+                rez = _context.Products.Include("CategoryBakerys").FirstOrDefault(p => p.ID == product.ID).CategoryBakerys.CategoryName;
             });
-            return product;
+            return rez;
         }
-            public List<Product> load(String category, String manuf)
+
+        public async Task<String> GetProductManufAsync(Product product)
+        {
+            string rez = null;
+
+            await Task.Run(() =>
+            {
+                var listProdManeuf = _context.Products.Include("Manufacturers").Include("Products.Manufacturers").ToList();
+                foreach (var prod in listProdManeuf)
+                {
+                    if (prod.ID == product.ID) {prod.Manufacturers.}
+                }
+            });
+
+            return rez;
+        }
+        public List<Product> load(String category, String manuf)
         {
 
             return _context.Products
@@ -86,9 +102,7 @@ namespace BakeryCafe.Controllers
             return query.ToList();*/
         }
 
-
-    
-
+        
     public DateTime dateOfProduct ()
         {
             Thread.Sleep(10);
