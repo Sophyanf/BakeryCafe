@@ -101,11 +101,11 @@ namespace BakeryCafe.Controllers
         public async Task<string> GetProdManufAsync(Product prod)
         {
             string result = null;
-          
+
             await Task.Run(() =>
             {
-                _context.Products.Include("Manufacturers").ToList();
-                 //.FirstOrDefault(p => prod.ID == p.ID).Manufacturers.
+                result = _context.Products.Include("Manufacturers")
+                 .FirstOrDefault(p => prod.ID == p.ID).Manufacturers.FirstOrDefault().ManufacturerName;
             });
             return result;
         }
