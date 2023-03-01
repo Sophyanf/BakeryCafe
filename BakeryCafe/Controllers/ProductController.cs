@@ -37,8 +37,40 @@ namespace BakeryCafe.Controllers
                 return false;
             }
         }
+        public async Task<bool> EditProductAsync(Product product, CategoryBakery category, Manufacturer manuf)
+        {
+            try
+            {
+                if (category != null)
+                {
+                    CategoryBakery oldCategory = _context.Products.Include("CategoryBakerys").FirstOrDefault(p => p.ID == product.ID).CategoryBakerys;
+                    //_context.CategoryBakeries.Include("Products").FirstOrDefault(c => c.ID == category.ID).Products.Remove(product);
+                    _context.CategoryBakeries.Include("Products").FirstOrDefault(c => c.ID == category.ID).Products.Add(product);
+                    await _context.SaveChangesAsync();
+                }
+                if (manuf != null)
+                {
+                    Manufacturer oldManuf = _context.Products.Include("Manufacturers").FirstOrDefault(p => product.ID == p.ID).Manufacturers.FirstOrDefault();
+                    _context.Manufacturer.Include("Products").FirstOrDefault(c => c.ID == oldManuf.ID).Products.Remove(product);
+                    _context.Manufacturer.Include("Products").FirstOrDefault(c => c.ID == manuf.ID).Products.Add(product);
+                    await _context.SaveChangesAsync();
+                }
+                //if (_context != null) { await _context.SaveChangesAsync(); }
+                
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
-
+        public async void RemoveProduct (Product prod)
+        {
+            var result =  _context.Products.FirstOrDefault(p => p.ID!= prod.ID);
+            _context.Products.Remove(result);
+            await _context.SaveChangesAsync();
+        }
         public async Task<List<Product>> GetProductAsync(string DataName)
         {
             List<Product> result = null;
@@ -53,7 +85,7 @@ namespace BakeryCafe.Controllers
                 {
                     foreach (var product in _context.Products)
                     {
-                        _context.Products.Include("CategoryBakeries").ToList(); //РАЗОБРАТЬСЯ С ЗАПРОСАМИ
+                        _context.Products.Include("CategoryBakeries").ToList(); 
                         result.Add(product);
                     }
                 }
@@ -71,7 +103,18 @@ namespace BakeryCafe.Controllers
             return rez;
         }
 
-        public async Task<String> GetProductManufAsync(Product product)
+        public async Task<string> GetProdManufAsync(Product prod)
+        {
+            string result = null;
+
+            await Task.Run(() =>
+            {
+                result = _context.Products.Include("Manufacturers").FirstOrDefault(p => prod.ID == p.ID).Manufacturers.FirstOrDefault().ManufacturerName;
+            });
+            return result;
+        }
+
+       /* public async Task<String> GetProductManufAsync(Product product)
         {
             string rez = null;
 
@@ -85,22 +128,21 @@ namespace BakeryCafe.Controllers
             });
 
             return rez;
-        }
+        }*/
         public List<Product> load(String category, String manuf)
         {
-
+            if (category == "") 
+            {
+                return _context.Products
+                   .Include("Manufacturers")
+                   .Where(p => p.Manufacturers.Any(m => m.ManufacturerName.Contains(manuf)))
+                   .ToList();
+            }
             return _context.Products
                 .Include("CategoryBakerys")
                 .Include("Manufacturers")
                 .Where(p => p.Manufacturers.Any(m => m.ManufacturerName.Contains(manuf)) && p.CategoryBakerys.CategoryName == category)
                 .ToList();
-            /*var query = from p in _context.Set<Product>()
-                        join m in _context.Set<Manufacturer>()
-                        on m equals p
-                        where (category == null || p.CategoryBakerys.CategoryName.Contains(category))
-                        
-                        select p;
-            return query.ToList();*/
         }
 
 

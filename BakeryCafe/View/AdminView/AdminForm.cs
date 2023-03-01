@@ -30,6 +30,7 @@ namespace BakeryCafe.View
         private async void AdminForm_Load(object sender, EventArgs e)
         {
             categoryComboBox.Items.Clear();
+            manufComboBox.Items.Clear();
             categoryComboBox.Items.Add("Все категории");
             manufComboBox.Items.Add("Все производители");
             (await data.GetCategoryAsync()).ForEach(c => categoryComboBox.Items.Add(c.CategoryName));
@@ -54,11 +55,12 @@ namespace BakeryCafe.View
 
         private async void categoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-               if (categoryComboBox.SelectedIndex == 0)
+               if (categoryComboBox.SelectedIndex == 0 && manufComboBox.SelectedIndex == 0)
                 {
                     listBox1.Items.Clear();
                     (await dataProduct.GetProductAsync("")).ForEach(c => listBox1.Items.Add(c));
                 }
+              
                 else
                 {
                     listBox1.Items.Clear();
@@ -73,27 +75,22 @@ namespace BakeryCafe.View
         }
 
      
-        private void manufComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private async void manufComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (manufComboBox.SelectedIndex == 0)
+            if (categoryComboBox.SelectedIndex == 0 && manufComboBox.SelectedIndex == 0)
             {
                 listBox1.Items.Clear();
-                manufComboBox.SelectedIndexChanged += categoryComboBox_SelectedIndexChanged;
+                (await dataProduct.GetProductAsync("")).ForEach(c => listBox1.Items.Add(c));
             }
             else
             {
                 listBox1.Items.Clear();
-                var products = filter(categoryComboBox.Text, manufComboBox.Text);
+                
+                var  products = filter(categoryComboBox.Text, manufComboBox.Text);
                 foreach (var product in products)
                 {
                     listBox1.Items.Add(product);
                 }
-                /* listBox1.Items.Clear();
-                 var products = filter(categoryComboBox.Text, manufComboBox.Text);
-                 foreach (var product in products)
-                 {
-                     listBox1.Items.Add(product.ToString());
-                 }*/
             }
         }
 
@@ -101,15 +98,29 @@ namespace BakeryCafe.View
         {
             if (manuf == "Все производители") manuf= "";
             return dataProduct.load(category, manuf);
-        }
+        } 
 
         private void button2_Click(object sender, EventArgs e)
         {
-
-            if (new AddNewProductForm().ShowDialog() == DialogResult.OK)
+            try
             {
-                AdminForm_Load(sender, e);
+                if (new EditProductForm(listBox1.SelectedItem as Product).ShowDialog() == DialogResult.OK)
+                {
+                    AdminForm_Load(sender, e);
+                }
             }
+            catch { MessageBox.Show("Выберите продукт из списка"); }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            removeProduct();
+            AdminForm_Load(sender, e);
+        }
+
+        private void removeProduct ()
+        {
+            dataProduct.RemoveProduct(listBox1.SelectedItem as Product);
         }
 
         private void tabPage1_Click(object sender, EventArgs e)

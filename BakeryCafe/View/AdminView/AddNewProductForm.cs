@@ -25,6 +25,7 @@ namespace BakeryCafe.View.AdminView
         {
             InitializeComponent();
             dateTimePicker1.MinDate = DateTime.Today.AddDays(-5);
+            dateTimePicker1.MaxDate = DateTime.Today;
         }
 
         private async void AddNewProduct_Load(object sender, EventArgs e)
@@ -41,8 +42,8 @@ namespace BakeryCafe.View.AdminView
 
         protected async void button1_Click(object sender, EventArgs e)
         {
-            CategoryBakery category = (CategoryBakery)await data.CheckDataProductAsync(categoryComboBox.Text, categoryData); // проверяем есть ли уже категория
-            Manufacturer manufacturer = (Manufacturer)await data.CheckDataProductAsync(manyfComboBox.Text, manufData);
+            
+            
             Product newProduct = new Product()  // создаем новый продукт из текстбоксов и пр.
             {
                 productName = textBox1.Text,
@@ -51,6 +52,21 @@ namespace BakeryCafe.View.AdminView
                 dateOfManuf = dateTimePicker1.Value
         };
 
+            CategoryBakery category = await selectCategoryAsinc();
+            Manufacturer manufacturer = await selectManufAsinc();
+
+            var res = await dataProduct.AddProductAsync(newProduct, category, manufacturer);
+            if (res == false)
+            {
+                MessageBox.Show("Ошибка!!! Проверьте продукт");
+                return;
+            }
+            DialogResult = DialogResult.OK;
+        }
+
+        protected async Task<CategoryBakery> selectCategoryAsinc ()  // перенести в DataProductController если успею
+        {
+            CategoryBakery category = (CategoryBakery)await data.CheckDataProductAsync(categoryComboBox.Text, categoryData); // проверяем есть ли уже категория
             if (category == null) // если категории нет
             {
                 category = new CategoryBakery()  // создаем категорию
@@ -61,10 +77,14 @@ namespace BakeryCafe.View.AdminView
                 if (await data.AddDataProdAsync(category) == false)
                 {
                     MessageBox.Show("Ошибка!!! Проверьте категорию");
-                    return;
-                }   
+                }
             }
+            return category;
+        }
 
+        protected async Task<Manufacturer> selectManufAsinc() // перенести в DataProductController если успею
+        {
+            Manufacturer manufacturer = (Manufacturer)await data.CheckDataProductAsync(manyfComboBox.Text, manufData);
             if (manufacturer == null)
             {
                 manufacturer = new Manufacturer()
@@ -75,17 +95,9 @@ namespace BakeryCafe.View.AdminView
                 if (await data.AddDataProdAsync(manufacturer) == false)
                 {
                     MessageBox.Show("Ошибка!!! Проверьте производителя");
-                    return;
                 }
             }
-
-            var res = await dataProduct.AddProductAsync(newProduct, category, manufacturer);
-            if (res == false)
-            {
-                MessageBox.Show("Ошибка!!! Проверьте продукт");
-                return;
-            }
-            DialogResult = DialogResult.OK;
+            return manufacturer;
         }
     }
 }

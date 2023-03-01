@@ -98,17 +98,7 @@ namespace BakeryCafe.Controllers
             return result;
         }
 
-        public async Task<string> GetProdManufAsync(Product prod)
-        {
-            string result = null;
-
-            await Task.Run(() =>
-            {
-                result = _context.Products.Include("Manufacturers")
-                 .FirstOrDefault(p => prod.ID == p.ID).Manufacturers.FirstOrDefault().ManufacturerName;
-            });
-            return result;
-        }
+       
         public async Task<bool> AddCategoryAsync(CategoryBakery category)
         {
             try
