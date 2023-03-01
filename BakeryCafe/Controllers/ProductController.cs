@@ -110,6 +110,14 @@ namespace BakeryCafe.Controllers
             return DateTime.Today.AddDays(-(new Random().Next(0, 5)));
         }
 
-        
+        public async void SaveProduct(Product prod)
+        {
+            var oldProd =_context.Products
+                .Include("CategoryBakeries")
+                .Include("Manufacturers")
+                .FirstOrDefault(p => p.ID == prod.ID);
+            oldProd = prod;
+            _context.SaveChanges();
+        }
     }
 } 

@@ -39,7 +39,7 @@ namespace BakeryCafe.View.AdminView
             (await data.GetManufAsync()).ForEach(c => manyfComboBox.Items.Add(c.ManufacturerName)); // заменить на GetDataProductAsync(string dataType) ЕСЛИ ПОЛУЧИТСЯ
         }
 
-        protected virtual async void button1_Click(object sender, EventArgs e)
+        protected async void button1_Click(object sender, EventArgs e)
         {
             CategoryBakery category = (CategoryBakery)await data.CheckDataProductAsync(categoryComboBox.Text, categoryData); // проверяем есть ли уже категория
             Manufacturer manufacturer = (Manufacturer)await data.CheckDataProductAsync(manyfComboBox.Text, manufData);
@@ -85,17 +85,7 @@ namespace BakeryCafe.View.AdminView
                 MessageBox.Show("Ошибка!!! Проверьте продукт");
                 return;
             }
-           
-            this.AddNewProduct_Load(sender, e);
-        }
-        private async void CheckDataProduct(IDataProduct obj)
-        {
-            var result = await data.AddDataProdAsync(obj);
-            if (result == false)
-            {
-                MessageBox.Show("Ошибка!!! Проверьте категорию или производителя");
-                return;
-            }
+            DialogResult = DialogResult.OK;
         }
     }
 }

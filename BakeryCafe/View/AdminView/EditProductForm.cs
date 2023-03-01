@@ -40,10 +40,19 @@ namespace BakeryCafe.View.AdminView
             dateTimePicker1.Value = product.dateOfManuf;
         }
 
-        protected override void button1_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
-            base.button1_Click(sender, e);
-            this.EditProductForm_Load(sender, e);
+            if (
+            categoryComboBox.SelectedItem = await dataProduct.GetProductCategoryAsync(product) 
+            manyfComboBox.SelectedItem = await data.GetProdManufAsync(product);
+        }
+
+        private void fillProdukt ()
+        {
+            product.productName = textBox1.Text  ;
+            product.weight = (int)numericUpDown1.Value ;
+            product.price = numericUpDown2.Value;
+            product.dateOfManuf = dateTimePicker1.Value;
         }
     }
 }

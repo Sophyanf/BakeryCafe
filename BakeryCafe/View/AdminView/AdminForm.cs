@@ -46,7 +46,10 @@ namespace BakeryCafe.View
 
         private void button3_Click(object sender, EventArgs e)
         {
-           new AddNewProductForm().ShowDialog(); 
+          if (new AddNewProductForm().ShowDialog()== DialogResult.OK)
+            {
+                AdminForm_Load(sender, e);
+            }
         }
 
         private async void categoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -102,8 +105,11 @@ namespace BakeryCafe.View
 
         private void button2_Click(object sender, EventArgs e)
         {
-           
-             new EditProductForm(listBox1.SelectedItem as Product).ShowDialog();
+
+            if (new AddNewProductForm().ShowDialog() == DialogResult.OK)
+            {
+                AdminForm_Load(sender, e);
+            }
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
