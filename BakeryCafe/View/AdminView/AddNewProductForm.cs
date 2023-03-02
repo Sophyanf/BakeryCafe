@@ -36,8 +36,8 @@ namespace BakeryCafe.View.AdminView
             manyfComboBox.Text = "";
             toolTip1.SetToolTip(categoryComboBox, "Если в списке нет нужной категории, введите наименование новой категории");
             toolTip1.SetToolTip(manyfComboBox, "Если в списке нет нужного производителя, введите наименование нового производителя");
-            (await data.GetCategoryAsync()).ForEach(c => categoryComboBox.Items.Add(c.CategoryName)); // заменить на GetDataProductAsync(string dataType) ЕСЛИ ПОЛУЧИТСЯ
-            (await data.GetManufAsync()).ForEach(c => manyfComboBox.Items.Add(c.ManufacturerName)); // заменить на GetDataProductAsync(string dataType) ЕСЛИ ПОЛУЧИТСЯ
+            (await data.GetListCategoryAsync()).ForEach(c => categoryComboBox.Items.Add(c.CategoryName)); // заменить на GetDataProductAsync(string dataType) ЕСЛИ ПОЛУЧИТСЯ
+            (await data.GetListManufAsync()).ForEach(c => manyfComboBox.Items.Add(c.ManufacturerName)); // заменить на GetDataProductAsync(string dataType) ЕСЛИ ПОЛУЧИТСЯ
         }
 
         protected async void button1_Click(object sender, EventArgs e)

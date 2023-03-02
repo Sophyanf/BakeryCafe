@@ -34,8 +34,8 @@ namespace BakeryCafe.View
             manufComboBox.Items.Clear();
             categoryComboBox.Items.Add("Все категории");
             manufComboBox.Items.Add("Все производители");
-            (await data.GetCategoryAsync()).ForEach(c => categoryComboBox.Items.Add(c.CategoryName));
-            (await data.GetManufAsync()).ForEach(c => manufComboBox.Items.Add(c.ManufacturerName));
+            (await data.GetListCategoryAsync()).ForEach(c => categoryComboBox.Items.Add(c.CategoryName));
+            (await data.GetListManufAsync()).ForEach(c => manufComboBox.Items.Add(c.ManufacturerName));
             categoryComboBox.SelectedIndex = 0;
             manufComboBox.SelectedIndex = 0;
         }
@@ -80,7 +80,7 @@ namespace BakeryCafe.View
             if (categoryComboBox.SelectedIndex == 0 && manufComboBox.SelectedIndex == 0)
             {
                 listBox1.Items.Clear();
-                (await dataProduct.GetProductAsync("")).ForEach(c => listBox1.Items.Add(c + "производитель: " +  c.Manufacturers.FirstOrDefault().ManufacturerName));
+                (await dataProduct.GetProductAsync("")).ForEach(c => listBox1.Items.Add(c/* + "производитель: " +  c.Manufacturers.FirstOrDefault().ManufacturerName*/));
             }
             else
             {
@@ -92,7 +92,7 @@ namespace BakeryCafe.View
                 {
                     listBox1.Items.Add(product);
                 }
-              //  if (manufComboBox.SelectedIndex != 0) { MessageBox.Show("ср. стоимость" + (await data.AveragePriceAsync("", manufComboBox.SelectedItem.ToString()))); }
+                if (manufComboBox.SelectedIndex != 0) { MessageBox.Show("ср. стоимость" + (await data.AveragePriceAsync("", manufComboBox.SelectedItem.ToString()))); }
             }
         }
 
@@ -123,7 +123,7 @@ namespace BakeryCafe.View
 
         private void removeProduct ()
         {
-            dataProduct.RemoveProduct(listBox1.SelectedItem as Product);
+            dataProduct.RemoveProduct(listBox1.               SelectedItem as Product);
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -142,7 +142,7 @@ namespace BakeryCafe.View
                 label.Location = new System.Drawing.Point(380, 350);
 
                 System.Windows.Forms.ComboBox comboBoxManuf = new System.Windows.Forms.ComboBox();
-                (await data.GetManufAsync()).ForEach(c => comboBoxManuf.Items.Add(c.ManufacturerName));
+                (await data.GetListManufAsync()).ForEach(c => comboBoxManuf.Items.Add(c.ManufacturerName));
                 comboBoxManuf.Location = new System.Drawing.Point(380, 370);
                 manufComboBox.Items.Add("Все производители");
                 comboBoxManuf.SelectedIndex = 0;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BakeryCafe.Model
 {
-    public class IDataProduct
+    public interface IDataProduct
     {
       
     }

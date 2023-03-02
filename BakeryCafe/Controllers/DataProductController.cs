@@ -27,6 +27,47 @@ namespace BakeryCafe.Controllers
             internal static readonly DataProductController instance = new DataProductController();
         }
 
+        public async Task<decimal> AveragePriceAsync(string dataType, string dataName)
+        {
+            List<Product> result = null;
+            decimal sumPrice = 0;
+            await Task.Run(() =>
+            {
+                result = _context.Products
+                    .Include("Manufacturers")
+                    .Where(p => p.Manufacturers.Any(m => m.ManufacturerName == dataName))
+                    .ToList();
+            });
+            result.ForEach(p => sumPrice += p.price);
+
+            return sumPrice / result.Count;
+        }
+        public async Task<bool> AddDataProdAsync(IDataProduct obj)
+        {
+            try
+            {
+                if (obj is CategoryBakery)
+                {
+                    var category = obj as CategoryBakery;
+                    _context.CategoryBakeries.Add(category);
+                }
+                else if (obj is Manufacturer)
+                {
+                    var manufacturer = obj as Manufacturer;
+                    _context.Manufacturer.Add(manufacturer);
+                }
+
+                await _context.SaveChangesAsync();
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+       
         public async Task<IDataProduct> CheckDataProductAsync(string name, string dataName)
         {
             IDataProduct result = null;
@@ -77,7 +118,7 @@ namespace BakeryCafe.Controllers
             }
         }
 
-        public async Task<List<CategoryBakery>> GetCategoryAsync()
+        public async Task<List<CategoryBakery>> GetListCategoryAsync()
         {
             List<CategoryBakery> result = null;
 
@@ -88,7 +129,7 @@ namespace BakeryCafe.Controllers
             return result;
         }
 
-        public async Task<List<Manufacturer>> GetManufAsync()
+        public async Task<List<Manufacturer>> GetListManufAsync()
         {
             List<Manufacturer> result = null;
             await Task.Run(() =>
@@ -98,63 +139,10 @@ namespace BakeryCafe.Controllers
             return result;
         }
 
+     
+        
+
        
-        public async Task<bool> AddCategoryAsync(CategoryBakery category)
-        {
-            try
-            {
-                _context.CategoryBakeries.Add(category);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-        }
-        public async Task<bool> AddDataProdAsync(IDataProduct obj)
-        {
-            try
-            {
-                if (obj is CategoryBakery)
-                {
-                    var category = obj as CategoryBakery;
-                    _context.CategoryBakeries.Add(category);
-                }
-                else if (obj is Manufacturer)
-                {
-                    var manufacturer = obj as Manufacturer;
-                    _context.Manufacturer.Add(manufacturer);
-                }
-
-                await _context.SaveChangesAsync();
-                return true;
-
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-        }
-
-        public async Task <decimal> AveragePriceAsync (string dataType, string dataName)
-        {
-            List<Product> result = null;
-            //decimal productCount = _context.Products.ToList().Count;
-            decimal sumPrice = 0;
-       //     await Task.Run(() =>
-     //       {
-                result = _context.Products
-                    .Include("Manufacturers")
-                    .Where(p => p.Manufacturers.Any(m => m.ManufacturerName == dataName))
-                    .ToList();
-        //    });
-            result.ForEach(p => sumPrice += p.price);
-
-            return sumPrice/result.Count;
-        }
         /*   public async Task<List<IDataProduct>> GetDataProductAsync(string dataType) // вместо GetCategoryAsync() и GetManufAsync()
            {
                List<IDataProduct> result = null;
