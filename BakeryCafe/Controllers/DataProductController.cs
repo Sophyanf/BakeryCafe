@@ -138,6 +138,23 @@ namespace BakeryCafe.Controllers
                 return false;
             }
         }
+
+        public async Task <decimal> AveragePriceAsync (string dataType, string dataName)
+        {
+            List<Product> result = null;
+            //decimal productCount = _context.Products.ToList().Count;
+            decimal sumPrice = 0;
+       //     await Task.Run(() =>
+     //       {
+                result = _context.Products
+                    .Include("Manufacturers")
+                    .Where(p => p.Manufacturers.Any(m => m.ManufacturerName == dataName))
+                    .ToList();
+        //    });
+            result.ForEach(p => sumPrice += p.price);
+
+            return sumPrice/result.Count;
+        }
         /*   public async Task<List<IDataProduct>> GetDataProductAsync(string dataType) // вместо GetCategoryAsync() и GetManufAsync()
            {
                List<IDataProduct> result = null;

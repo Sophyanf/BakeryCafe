@@ -46,10 +46,10 @@ namespace BakeryCafe.View.AdminView
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            fillProdukt();
+            await fillProdukt();
         }
 
-        private async void fillProdukt ()
+        private async Task<bool> fillProdukt ()
         {
             product.productName = textBox1.Text;
             product.weight = (int)numericUpDown1.Value;
@@ -60,17 +60,16 @@ namespace BakeryCafe.View.AdminView
             Manufacturer manufacturer = null;
 
             if (productCategory != categoryComboBox.SelectedItem.ToString() ) { category = await selectCategoryAsinc(); }
-                
-                    
              if  (productManuf != manyfComboBox?.SelectedItem.ToString()) { manufacturer = await selectManufAsinc(); }
         
                 var res = await dataProduct.EditProductAsync(product, category, manufacturer);
                 if (res == false)
                 {
                     MessageBox.Show("Ошибка!!! Проверьте продукт");
-                    return;
+                    return false;
                 }
                 DialogResult = DialogResult.OK;
+            return true;
         }
     }
 }

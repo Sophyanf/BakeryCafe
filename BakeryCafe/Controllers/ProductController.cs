@@ -67,7 +67,7 @@ namespace BakeryCafe.Controllers
 
         public async void RemoveProduct (Product prod)
         {
-            var result =  _context.Products.FirstOrDefault(p => p.ID!= prod.ID);
+            var result =  _context.Products.FirstOrDefault(p => p.ID== prod.ID);
             _context.Products.Remove(result);
             await _context.SaveChangesAsync();
         }
@@ -114,35 +114,34 @@ namespace BakeryCafe.Controllers
             return result;
         }
 
-       /* public async Task<String> GetProductManufAsync(Product product)
-        {
-            string rez = null;
+        /* public async Task<String> GetProductManufAsync(Product product)
+         {
+             string rez = null;
 
-            await Task.Run(() =>
-            {
-                var listProdManeuf = _context.Products.Include("Manufacturers").Include("Products.Manufacturers").ToList();
-                foreach (var prod in listProdManeuf)
-                {
-                    //if (prod.ID == product.ID) {prod.Manufacturers.}
-                }
-            });
+             await Task.Run(() =>
+             {
+                 var listProdManeuf = _context.Products.Include("Manufacturers").Include("Products.Manufacturers").ToList();
+                 foreach (var prod in listProdManeuf)
+                 {
+                     //if (prod.ID == product.ID) {prod.Manufacturers.}
+                 }
+             });
 
-            return rez;
-        }*/
+             return rez;
+         }*/
         public List<Product> load(String category, String manuf)
         {
-            if (category == "") 
-            {
-                return _context.Products
-                   .Include("Manufacturers")
-                   .Where(p => p.Manufacturers.Any(m => m.ManufacturerName.Contains(manuf)))
-                   .ToList();
-            }
+            if (category == "")
+                    return _context.Products
+                    .Include("Manufacturers")
+                    .Where(p => p.Manufacturers.Any(m => m.ManufacturerName.Contains(manuf)))
+                    .ToList();
+
             return _context.Products
-                .Include("CategoryBakerys")
-                .Include("Manufacturers")
-                .Where(p => p.Manufacturers.Any(m => m.ManufacturerName.Contains(manuf)) && p.CategoryBakerys.CategoryName == category)
-                .ToList();
+                    .Include("CategoryBakerys")
+                    .Include("Manufacturers")
+                    .Where(p => p.Manufacturers.Any(m => m.ManufacturerName.Contains(manuf)) && p.CategoryBakerys.CategoryName == category)
+                    .ToList();
         }
 
 
@@ -152,7 +151,7 @@ namespace BakeryCafe.Controllers
             return DateTime.Today.AddDays(-(new Random().Next(0, 5)));
         }
 
-        public async void SaveProduct(Product prod)
+       /* public async void SaveProduct(Product prod)
         {
             var oldProd =_context.Products
                 .Include("CategoryBakeries")
@@ -160,6 +159,6 @@ namespace BakeryCafe.Controllers
                 .FirstOrDefault(p => p.ID == prod.ID);
             oldProd = prod;
             _context.SaveChanges();
-        }
+        }*/
     }
 } 

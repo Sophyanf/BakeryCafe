@@ -12,31 +12,21 @@ namespace BakeryCafe.Model
     {
 
         private DataProductController data = DataProductController.Instance;
-        private ProductController dataProduct = ProductController.Instance;
-        public static string manufData = "manufacturer";
-        public static string categoryData = "categoryBakery";
+        private static ProductController dataProduct = ProductController.Instance;
         public int ID { get; set; }
         public string productName { get; set; }
         public int weight { get; set; }
         public decimal price { get; set; }
         public DateTime dateOfManuf { get; set; }
         public CategoryBakery CategoryBakerys { get; set; }
-        public virtual  ICollection<Manufacturer> Manufacturers { get; set; } // попробовать еще
+        public ICollection<Manufacturer> Manufacturers { get; set; } 
 
        
-        public override string ToString()
-        {
-            var mans = "";
-            foreach (var manufacturer in Manufacturers)
-            {
-                mans += manufacturer.ToString();
-            }
+        public override string ToString() { 
+       
             //return $"{productName} Вес: {weight} Цена: {price} Производитель: {mans}";
-            return $"{productName} Дата: {dateOfManuf} Производитель: {mans}";
+            return $"{productName} Дата: {dateOfManuf} Цена: {price}";
         }
-
     }
-
-   
 }
 

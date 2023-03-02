@@ -25,6 +25,7 @@ namespace BakeryCafe.View
         {
             InitializeComponent();
             listBox1.TopIndex = listBox1.TopIndex + (vScrollBar1.Value - 5);
+           // MessageBox.Show("ср. стоимость " + data.AveragePriceAsync("", "Добрый"));
         }
 
         private async void AdminForm_Load(object sender, EventArgs e)
@@ -37,7 +38,6 @@ namespace BakeryCafe.View
             (await data.GetManufAsync()).ForEach(c => manufComboBox.Items.Add(c.ManufacturerName));
             categoryComboBox.SelectedIndex = 0;
             manufComboBox.SelectedIndex = 0;
-           
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -58,15 +58,15 @@ namespace BakeryCafe.View
                if (categoryComboBox.SelectedIndex == 0 && manufComboBox.SelectedIndex == 0)
                 {
                     listBox1.Items.Clear();
-                    (await dataProduct.GetProductAsync("")).ForEach(c => listBox1.Items.Add(c));
-                }
+                    (await dataProduct.GetProductAsync("")).ForEach(c => listBox1.Items.Add(c + "производитель: " + c.Manufacturers.FirstOrDefault().ManufacturerName));
+            }
               
                 else
                 {
                     listBox1.Items.Clear();
 
                 listBox1.Items.Clear();
-                var products = filter(categoryComboBox.Text, manufComboBox.Text);
+                var products = await filter(categoryComboBox.Text, manufComboBox.Text);
                 foreach (var product in products)
                 {
                     listBox1.Items.Add(product);
@@ -80,23 +80,26 @@ namespace BakeryCafe.View
             if (categoryComboBox.SelectedIndex == 0 && manufComboBox.SelectedIndex == 0)
             {
                 listBox1.Items.Clear();
-                (await dataProduct.GetProductAsync("")).ForEach(c => listBox1.Items.Add(c));
+                (await dataProduct.GetProductAsync("")).ForEach(c => listBox1.Items.Add(c + "производитель: " +  c.Manufacturers.FirstOrDefault().ManufacturerName));
             }
             else
             {
+               
                 listBox1.Items.Clear();
                 
-                var  products = filter(categoryComboBox.Text, manufComboBox.Text);
+                var  products = await filter(categoryComboBox.Text, manufComboBox.Text);
                 foreach (var product in products)
                 {
                     listBox1.Items.Add(product);
                 }
+              //  if (manufComboBox.SelectedIndex != 0) { MessageBox.Show("ср. стоимость" + (await data.AveragePriceAsync("", manufComboBox.SelectedItem.ToString()))); }
             }
         }
 
-        private List<Product> filter(String category, String manuf)
+        private async Task<List<Product>> filter(String category, String manuf)  // не получилось асинхронно + load
         {
-            if (manuf == "Все производители") manuf= "";
+            if (manuf == "Все производители") manuf= "";                       //подумать правильное условие если успею
+            if (category == "Все категории") category = "";
             return dataProduct.load(category, manuf);
         } 
 
@@ -126,6 +129,26 @@ namespace BakeryCafe.View
         private void tabPage1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private async void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox2.SelectedIndex < 4)
+            {
+                System.Windows.Forms.Label label = new System.Windows.Forms.Label();
+                label.AutoSize = true;
+                label.Text="Выберите производителя";
+                tabPage2.Controls.Add(label);
+                label.Location = new System.Drawing.Point(380, 350);
+
+                System.Windows.Forms.ComboBox comboBoxManuf = new System.Windows.Forms.ComboBox();
+                (await data.GetManufAsync()).ForEach(c => comboBoxManuf.Items.Add(c.ManufacturerName));
+                comboBoxManuf.Location = new System.Drawing.Point(380, 370);
+                manufComboBox.Items.Add("Все производители");
+                comboBoxManuf.SelectedIndex = 0;
+                tabPage2.Controls.Add(comboBoxManuf);
+                comboBoxManuf.Visible = true ;
+            }
         }
     }
 }
