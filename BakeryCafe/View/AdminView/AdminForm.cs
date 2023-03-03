@@ -58,7 +58,7 @@ namespace BakeryCafe.View
                if (categoryComboBox.SelectedIndex == 0 && manufComboBox.SelectedIndex == 0)
                 {
                     listBox1.Items.Clear();
-                    (await dataProduct.GetProductAsync("")).ForEach(c => listBox1.Items.Add(c + "производитель: " + c.Manufacturers.FirstOrDefault().ManufacturerName));
+                    (await dataProduct.GetListProductAsync("")).ForEach(c => listBox1.Items.Add(c + "производитель: " + c.Manufacturers.FirstOrDefault().ManufacturerName));
             }
               
                 else
@@ -80,7 +80,7 @@ namespace BakeryCafe.View
             if (categoryComboBox.SelectedIndex == 0 && manufComboBox.SelectedIndex == 0)
             {
                 listBox1.Items.Clear();
-                (await dataProduct.GetProductAsync("")).ForEach(c => listBox1.Items.Add(c/* + "производитель: " +  c.Manufacturers.FirstOrDefault().ManufacturerName*/));
+                (await dataProduct.GetListProductAsync("")).ForEach(c => listBox1.Items.Add(c/* + "производитель: " +  c.Manufacturers.FirstOrDefault().ManufacturerName*/));
             }
             else
             {

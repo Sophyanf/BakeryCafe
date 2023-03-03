@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BakeryCafe.Controllers;
+using BakeryCafe.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,7 @@ namespace BakeryCafe.View
     {
         ImageBlink imageBlink;
         List<PictureBox> pictureBoxes;
+        private ProductController dataProduct = ProductController.Instance;
 
         public StartForm()
         {
@@ -27,17 +30,10 @@ namespace BakeryCafe.View
         {
             BlincIm(pictureBox1);
             pictureBox1.Visible = false;
-            /* foreach (var pictureBox in pictureBoxes)
-             {
-                 BlincIm(pictureBox);
-                 //ThreadPool.QueueUserWorkItem(BlincIm, pictureBox);
-
-             }*/
         }
 
         public async void BlincIm(object x)
         {
-
             try
             {
                 PictureBox pb = (PictureBox)x;
@@ -46,8 +42,6 @@ namespace BakeryCafe.View
                     this.Invoke(new Action(() => pb.Image = ChangeIm()));
                     await Task.Delay(1000);
                 }
-                /* timerPicture.Tick += timerPicture_Tick;
-                 timerPicture.Start();*/
             }
             catch
             {
@@ -68,27 +62,12 @@ namespace BakeryCafe.View
             Thread.Sleep(10);
             return image;
         }
-        private void timerPicture_Tick(object x, EventArgs e)
-        {
-            //  this.Invoke(new Action(() => label1.Text = i.ToString()));
-        }
-
-
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            //Form ifrm = new BakeryShop();
-            //ifrm.Show(); // отображаем Form2
-
-        }
-
+         
         private void StartForm_Load_1(object sender, EventArgs e)
         {
             foreach (var pictureBox in pictureBoxes)
               {
                   BlincIm(pictureBox);
-                  //ThreadPool.QueueUserWorkItem(BlincIm, pictureBox);
-
               }
         }
 
@@ -97,10 +76,15 @@ namespace BakeryCafe.View
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-             Form ifrm = new AdminForm();
-             ifrm.Show(); // отображаем Form2
+            /* Тестирование получения продукта
+            Product prod = (await dataProduct.GetListProductAsync("")).FirstOrDefault();
+            string strManuf = await dataProduct.GetProdManufAsync(prod);
+            string str = prod.ToString() + " Произв: " + strManuf;
+            MessageBox.Show(str); */
+
+            new AdminForm().ShowDialog();
         }
     }
 }

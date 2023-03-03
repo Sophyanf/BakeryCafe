@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,11 +23,21 @@ namespace BakeryCafe.Model
         public ICollection<Manufacturer> Manufacturers { get; set; } 
 
        
-        public override string ToString() { 
-     
-           string manuf = dataProduct.GetProdManufAsync(this).Result;
-            //return $"{productName} Вес: {weight} Цена: {price} Производитель: {mans}";
-            return $"{productName} Дата: {dateOfManuf} Цена: {price} Производитель: {manuf}";
+        public override string ToString() {
+
+            //string manufName = dataProduct.GetProdManufAsync(this).Result;
+             return $"{productName} Вес: {weight} Цена: {price}";
+            //return $"{productName} Дата: {dateOfManuf} Цена: {price} Производитель: {manufName}" + Environment.NewLine;
+        }
+
+        private async Task<string> manufName()
+        {
+            string manufName = "";
+            /*await Task.Run(async () =>
+            {
+                manufName = await dataProduct.GetProdManufAsync(this); ;
+            });*/
+            return manufName;
         }
     }
 }

@@ -40,7 +40,7 @@ namespace BakeryCafe.View.AdminView
             textBox1.Text = product.productName;
             numericUpDown1.Value = product.weight;
             numericUpDown2.Value = product.price;
-            dateTimePicker1.MinDate = (await dataProduct.GetProductAsync("")).Min(p => p.dateOfManuf);
+            dateTimePicker1.MinDate = (await dataProduct.GetListProductAsync("")).Min(p => p.dateOfManuf);
             dateTimePicker1.Value = product.dateOfManuf;
         }
 

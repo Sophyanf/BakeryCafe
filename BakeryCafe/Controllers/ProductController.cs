@@ -71,7 +71,7 @@ namespace BakeryCafe.Controllers
             _context.Products.Remove(result);
             await _context.SaveChangesAsync();
         }
-        public async Task<List<Product>> GetProductAsync(string DataName)
+        public async Task<List<Product>> GetListProductAsync(string DataName)
         {
             List<Product> result = null;
 
