@@ -4,13 +4,13 @@ using BakeryCafe.View.AdminView;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BakeryCafe.View
 {
@@ -18,8 +18,12 @@ namespace BakeryCafe.View
     {
         private DataProductController data = DataProductController.Instance;
         private ProductController dataProduct = ProductController.Instance;
+        private ReportsController dataReports = ReportsController.Instance;
         public static string manufData = "manufacturer";
         public static string categoryData = "categoryBakery";
+        /*System.Windows.Forms.ComboBox comboBoxManuf;
+        NumericUpDown numericUpDownPrice;
+        NumericUpDown numericUpDownPriceMax;*/
 
         public AdminForm()
         {
@@ -34,8 +38,11 @@ namespace BakeryCafe.View
             manufComboBox.Items.Clear();
             categoryComboBox.Items.Add("Все категории");
             manufComboBox.Items.Add("Все производители");
+            //(await data.GetDataProductAsync(categoryData)).Cast<List<CategoryBakery>>().ToList().ForEach(c => categoryComboBox.Items.Add((CategoryBakery)c.CategoryName));
             (await data.GetListCategoryAsync()).ForEach(c => categoryComboBox.Items.Add(c.CategoryName));
             (await data.GetListManufAsync()).ForEach(c => manufComboBox.Items.Add(c.ManufacturerName));
+            
+
             categoryComboBox.SelectedIndex = 0;
             manufComboBox.SelectedIndex = 0;
         }
@@ -66,11 +73,8 @@ namespace BakeryCafe.View
                     listBox1.Items.Clear();
 
                 listBox1.Items.Clear();
-                var products = await filter(categoryComboBox.Text, manufComboBox.Text);
-                foreach (var product in products)
-                {
-                    listBox1.Items.Add(product);
-                }
+                (await filter(categoryComboBox.Text, manufComboBox.Text)).ForEach(c => listBox1.Items.Add(c)); 
+                //if (categoryComboBox.SelectedIndex != 0) { MessageBox.Show("ср. стоимость" + (await data.AveragePriceAsync(categoryData, categoryComboBox.SelectedItem.ToString()))); }
             }
         }
 
@@ -92,7 +96,7 @@ namespace BakeryCafe.View
                 {
                     listBox1.Items.Add(product);
                 }
-                if (manufComboBox.SelectedIndex != 0) { MessageBox.Show("ср. стоимость" + (await data.AveragePriceAsync("", manufComboBox.SelectedItem.ToString()))); }
+                //if (manufComboBox.SelectedIndex != 0) { MessageBox.Show("ср. стоимость" + (await data.AveragePriceAsync(manufData, manufComboBox.SelectedItem.ToString()))); }
             }
         }
 
@@ -133,22 +137,100 @@ namespace BakeryCafe.View
 
         private async void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
+            RezultLabel.Text = "";
+
             if (listBox2.SelectedIndex < 4)
+            {
+                groupBox1.Visible = true;
+                comboBoxManuf.Items.Clear();
+                (await data.GetListManufAsync()).ForEach(c => comboBoxManuf.Items.Add(c.ManufacturerName));
+                comboBoxManuf.SelectedIndex = 0;
+            }
+
+            if (listBox2.SelectedIndex <= 1 )
+            {
+                numericUpDownPrice.Visible = false;
+                label5.Visible = false;
+                comboBoxManuf.SelectedIndexChanged += ComboBoxManuf_SelectedIndexChanged;
+            }
+
+            if (listBox2.SelectedIndex > 1 && listBox2.SelectedIndex < 4)
+            {
+                comboBoxManuf.SelectedIndexChanged += ComboBoxManuf_SelectedIndexChanged;
+                label5.Visible = true;
+                numericUpDownPrice.Visible = true;
+            }
+
+            if (listBox2.SelectedIndex == 4 )
             {
                 System.Windows.Forms.Label label = new System.Windows.Forms.Label();
                 label.AutoSize = true;
-                label.Text="Выберите производителя";
+                label.Text = "Задайте начальную стоимость";
                 tabPage2.Controls.Add(label);
-                label.Location = new System.Drawing.Point(380, 350);
+                label.Location = new System.Drawing.Point(330, 350);
 
-                System.Windows.Forms.ComboBox comboBoxManuf = new System.Windows.Forms.ComboBox();
-                (await data.GetListManufAsync()).ForEach(c => comboBoxManuf.Items.Add(c.ManufacturerName));
-                comboBoxManuf.Location = new System.Drawing.Point(380, 370);
-                manufComboBox.Items.Add("Все производители");
-                comboBoxManuf.SelectedIndex = 0;
-                tabPage2.Controls.Add(comboBoxManuf);
-                comboBoxManuf.Visible = true ;
+                numericUpDownPrice = new NumericUpDown();
+                numericUpDownPrice.Minimum = await data.GetCMinPriceAsync("");
+                numericUpDownPrice.Maximum = await data.GetCMaxPriceAsync("");
+                numericUpDownPrice.Value = numericUpDownPrice.Minimum;
+                numericUpDownPrice.Location = new System.Drawing.Point(330, 380);
+                tabPage2.Controls.Add(numericUpDownPrice);
+                numericUpDownPrice.Visible = true;
+
+                System.Windows.Forms.Label label1 = new System.Windows.Forms.Label();
+                label1.AutoSize = true;
+                label1.Text = "Задайте конечную стоимость";
+                tabPage2.Controls.Add(label);
+                label1.Location = new System.Drawing.Point(490, 350);
+
+            /*    numericUpDownPriceMax = new NumericUpDown();
+                numericUpDownPriceMax.Minimum = await data.GetCMinPriceAsync("");
+                numericUpDownPriceMax.Maximum = await data.GetCMaxPriceAsync("");
+                numericUpDownPriceMax.Value = numericUpDownPriceMax.Maximum;
+                numericUpDownPriceMax.Location = new System.Drawing.Point(490, 380);
+                tabPage2.Controls.Add(numericUpDownPriceMax);
+                numericUpDownPriceMax.Visible = true;*/
             }
+        }
+
+        private async void ComboBoxManuf_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (numericUpDownPrice != null)
+                try { 
+                    numericUpDownPrice.Minimum = await data.GetCMinPriceAsync(comboBoxManuf.SelectedItem.ToString());
+                    numericUpDownPrice.Maximum = await data.GetCMaxPriceAsync(comboBoxManuf.SelectedItem.ToString());
+                }
+                catch { MessageBox.Show("Нет продуктов выбранного производителя"); }
+           
+        }
+
+        private async void button5_Click(object sender, EventArgs e)
+        {
+            RezultLabel.Text = "";
+            switch(listBox2.SelectedIndex)
+            {
+                case 0:
+                    RezultLabel.Text += "Результат: " + Environment.NewLine +(await dataReports.ManufFromAllProducts(comboBoxManuf.SelectedItem.ToString())).ToString();
+                    break;
+                case 1:
+                    RezultLabel.Text += "Результат: " + Environment.NewLine + (await dataReports.ManufFromOtherManuf(comboBoxManuf.SelectedItem.ToString()));
+                    break;
+                case 2:
+                    RezultLabel.Text += "Результат: " + Environment.NewLine + "Доля более дорогих товаров: " + (await dataReports.expensiveManufPrice(comboBoxManuf.SelectedItem.ToString(),numericUpDownPrice.Value));
+                    break;
+                case 3:
+                    RezultLabel.Text += "Результат: " + Environment.NewLine + "Доля более дешевых товаров: " + (await dataReports.cheaperManufPrice(comboBoxManuf.SelectedItem.ToString(), numericUpDownPrice.Value));
+                    break;
+                case 4:
+                    RezultLabel.Text += "Результат: " + Environment.NewLine + "Колличество более дешевых товаров: " + (await dataReports.cheaperManufPrice(comboBoxManuf.SelectedItem.ToString(), numericUpDownPrice.Value));
+                    break;
+
+            }
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\DataProductController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="ImageBlink.cs" />
     <Compile Include="Migrations\202302221601555_InitialDB.cs" />
     <Compile Include="Migrations\202302221601555_InitialDB.designer.cs">

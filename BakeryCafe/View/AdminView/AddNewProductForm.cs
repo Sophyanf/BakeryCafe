@@ -24,8 +24,8 @@ namespace BakeryCafe.View.AdminView
         public AddNewProductForm()
         {
             InitializeComponent();
-            dateTimePicker1.MinDate = DateTime.Today.AddDays(-5);
             dateTimePicker1.MaxDate = DateTime.Today;
+            dateTimePicker1.MinDate = DateTime.Today.AddDays(-5);
         }
 
         private async void AddNewProduct_Load(object sender, EventArgs e)

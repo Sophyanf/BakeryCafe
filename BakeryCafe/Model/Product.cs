@@ -25,19 +25,9 @@ namespace BakeryCafe.Model
        
         public override string ToString() {
 
-            //string manufName = dataProduct.GetProdManufAsync(this).Result;
-             return $"{productName} Вес: {weight} Цена: {price}";
-            //return $"{productName} Дата: {dateOfManuf} Цена: {price} Производитель: {manufName}" + Environment.NewLine;
-        }
-
-        private async Task<string> manufName()
-        {
-            string manufName = "";
-            /*await Task.Run(async () =>
-            {
-                manufName = await dataProduct.GetProdManufAsync(this); ;
-            });*/
-            return manufName;
+            string manufName =  dataProduct.GetProdManuf(this);
+             return $"{productName} Вес: {weight} Цена: {price}" + Environment.NewLine;
+           // return $"{productName}( {manufName}) Дата: {dateOfManuf} Цена: {price} " + Environment.NewLine;
         }
     }
 }

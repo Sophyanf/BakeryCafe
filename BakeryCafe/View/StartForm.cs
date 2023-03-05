@@ -18,6 +18,7 @@ namespace BakeryCafe.View
         ImageBlink imageBlink;
         List<PictureBox> pictureBoxes;
         private ProductController dataProduct = ProductController.Instance;
+        private DataProductController data = DataProductController.Instance;
 
         public StartForm()
         {
@@ -83,6 +84,8 @@ namespace BakeryCafe.View
             string strManuf = await dataProduct.GetProdManufAsync(prod);
             string str = prod.ToString() + " Произв: " + strManuf;
             MessageBox.Show(str); */
+
+            //data.fillAverPrice();
 
             new AdminForm().ShowDialog();
         }
