@@ -23,16 +23,31 @@ namespace BakeryCafe
 
         public Image ChangeIm()
         {
+            Image image;
             Random random = new Random();
             int showIm = random.Next(0, 2);
+
             if (showIm == 0) { image = null; }
             else
             {
-               image = ImageList.Images[random.Next(0, ImageList.Images.Count)];
+                image = ImageList.Images[random.Next(0, ImageList.Images.Count)];
             }
+            Thread.Sleep(10);
             return image;
         }
 
-        
+        public async void BlincIm(object x)
+        {
+            try
+            {
+                PictureBox pb = (PictureBox)x;
+                while (true)
+                {
+                   pb.Image = ChangeIm();
+                    await Task.Delay(1000);
+                }
+            }
+            catch { }
+        }
     }
 }

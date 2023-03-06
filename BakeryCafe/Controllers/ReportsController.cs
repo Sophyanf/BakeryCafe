@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -57,7 +58,7 @@ namespace BakeryCafe.Controllers
             return rez;
         }
 
-        public async Task<string> expensiveManufPrice(string DataName, decimal priceControl)  // дешевые товары прозводителя
+        public async Task<string> expensiveManufPrice(string DataName, decimal priceControl)  // дорогие товары прозводителя
         {
             List<Product> prod = dataProduct.load("", DataName);
             int countProd = prod.Count;
@@ -82,6 +83,24 @@ namespace BakeryCafe.Controllers
             return rez;
         }
 
-       
+        public async Task<string> getPriceWithinLimits (decimal minPrice, decimal maxPrice)  // цена в заданых пределах
+        {
+            var prodList = await dataProduct.GetListProductAsync("");
+            int countProd = prodList.Where(p => p.price >= minPrice && p.price <= maxPrice).Count();
+            return ((decimal)countProd / prodList.Count).ToString("0.##");
+        }
+        public async Task<string> getPriceChipper(decimal maxPrice)  // цена ниже заданой
+        {
+            var prodList = await dataProduct.GetListProductAsync("");
+            int countProd = prodList.Where(p =>p.price < maxPrice).Count();
+            return ((decimal)countProd / prodList.Count).ToString("0.##");
+        }
+
+        public async Task<string> getDateWithinLimits(DateTime minPrice, DateTime maxPrice)  // цена в заданых пределах
+        {
+            var prodList = await dataProduct.GetListProductAsync("");
+            int countProd = prodList.Where(p => p.dateOfManuf >= minPrice && p.dateOfManuf <= maxPrice).Count();
+            return ((decimal)countProd / prodList.Count).ToString("0.##");
+        }
     }
 }

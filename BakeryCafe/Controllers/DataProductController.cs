@@ -114,8 +114,7 @@ namespace BakeryCafe.Controllers
             }
 
         }
-
-        public async Task<decimal> GetCMinPriceAsync(string manufName)  // Минимальная стоимость
+public async Task<decimal> GetCMinPriceAsync(string manufName)  // Минимальная стоимость
         {
             List<Product> result = null;
             if (manufName == "") { result = await dataProduct.GetListProductAsync(""); }
@@ -130,6 +129,24 @@ namespace BakeryCafe.Controllers
             else { result = dataProduct.load("", manufName); }
             return result.Max(p => p.price);
         }
+        public async Task<DateTime> GetCMinDateAsync(string manufName)  // Минимальная стоимость
+        {
+            List<Product> result = null;
+            if (manufName == "") { result = await dataProduct.GetListProductAsync(""); }
+            else { result = dataProduct.load("", manufName); }
+            return result.Min(p => p.dateOfManuf);
+        }
+
+        public async Task<DateTime> GetCMaxDateAsync(string manufName)  // Максимальная стоимость
+        {
+            List<Product> result = null;
+            if (manufName == "") { result = await dataProduct.GetListProductAsync(""); }
+            else { result = dataProduct.load("", manufName); }
+            return result.Max(p => p.dateOfManuf);
+        }
+
+
+
         /* public async Task<IDataProduct> GetProductDataAsync(string dataName, string dataType)   //
          {
              IDataProduct result = null;
