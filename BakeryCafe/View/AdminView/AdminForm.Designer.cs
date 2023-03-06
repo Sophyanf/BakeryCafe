@@ -289,7 +289,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Запрос";
             this.groupBox1.Visible = false;
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // numericUpDownPrice
             // 
@@ -491,7 +490,6 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 11;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // imageList1
             // 
@@ -551,7 +549,6 @@
             this.label7.Size = new System.Drawing.Size(163, 13);
             this.label7.TabIndex = 0;
             this.label7.Text = "Введите начальную стоимость";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // numericUpDownFinish
             // 
@@ -595,7 +592,6 @@
             this.label9.Size = new System.Drawing.Size(134, 13);
             this.label9.TabIndex = 0;
             this.label9.Text = "Введите начальную  дату";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // dateTimePicker1
             // 

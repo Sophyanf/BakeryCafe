@@ -23,9 +23,6 @@ namespace BakeryCafe.View
         ImageBlink imageBlink;
         public static string manufData = "manufacturer";
         public static string categoryData = "categoryBakery";
-        /*System.Windows.Forms.ComboBox comboBoxManuf;
-        NumericUpDown numericUpDownPrice;
-        NumericUpDown numericUpDownPriceMax;*/
 
         public AdminForm()
         {
@@ -48,8 +45,6 @@ namespace BakeryCafe.View
             //(await data.GetDataProductAsync(categoryData)).Cast<List<CategoryBakery>>().ToList().ForEach(c => categoryComboBox.Items.Add((CategoryBakery)c.CategoryName));
             (await data.GetListCategoryAsync()).ForEach(c => categoryComboBox.Items.Add(c.CategoryName));
             (await data.GetListManufAsync()).ForEach(c => manufComboBox.Items.Add(c.ManufacturerName));
-            
-
             categoryComboBox.SelectedIndex = 0;
             manufComboBox.SelectedIndex = 0;
         }

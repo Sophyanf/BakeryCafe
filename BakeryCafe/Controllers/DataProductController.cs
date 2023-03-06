@@ -176,7 +176,7 @@ public async Task<decimal> GetCMinPriceAsync(string manufName)  // Минима�
         public async Task<List<CategoryBakery>> GetListCategoryAsync()          //Список категорий (по возможности заменить на GetDataProductAsync(string dataType) ))
         {
             List<CategoryBakery> result = null;
-
+            
             await Task.Run(() =>
             {
                 result = _context.CategoryBakeries.Include("Products").ToList();

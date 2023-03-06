@@ -15,10 +15,6 @@ namespace BakeryCafe.Controllers
         private DataProductController data = DataProductController.Instance;
         private ProductController dataProduct = ProductController.Instance;
         public static ReportsController Instance { get => ReportsControllerCreate.instance; }
-
-
-
-
         private ReportsController()
         {
             _context = new AppDbContext();
