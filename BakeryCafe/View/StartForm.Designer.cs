@@ -205,7 +205,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.PapayaWhip;
-            this.button1.Location = new System.Drawing.Point(624, 779);
+            this.button1.Location = new System.Drawing.Point(623, 645);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(166, 54);
@@ -217,9 +217,9 @@
             // pictureBox12
             // 
             this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
-            this.pictureBox12.Location = new System.Drawing.Point(562, 370);
+            this.pictureBox12.Location = new System.Drawing.Point(558, 294);
             this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(296, 364);
+            this.pictureBox12.Size = new System.Drawing.Size(296, 322);
             this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox12.TabIndex = 12;
             this.pictureBox12.TabStop = false;
@@ -229,7 +229,7 @@
             // 
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.BackColor = System.Drawing.Color.PapayaWhip;
-            this.linkLabel1.Location = new System.Drawing.Point(516, 868);
+            this.linkLabel1.Location = new System.Drawing.Point(509, 724);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(198, 16);
             this.linkLabel1.TabIndex = 13;
@@ -241,7 +241,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.PapayaWhip;
-            this.label1.Location = new System.Drawing.Point(516, 887);
+            this.label1.Location = new System.Drawing.Point(509, 743);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(386, 16);
             this.label1.TabIndex = 14;
@@ -251,7 +251,7 @@
             // 
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.BackColor = System.Drawing.Color.PapayaWhip;
-            this.linkLabel2.Location = new System.Drawing.Point(516, 912);
+            this.linkLabel2.Location = new System.Drawing.Point(509, 768);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(160, 16);
             this.linkLabel2.TabIndex = 15;
@@ -265,7 +265,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1384, 937);
+            this.ClientSize = new System.Drawing.Size(1384, 953);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.linkLabel1);
