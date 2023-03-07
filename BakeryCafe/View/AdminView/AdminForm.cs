@@ -128,7 +128,8 @@ namespace BakeryCafe.View
 
         private void removeProduct ()
         {
-            dataProduct.RemoveProduct(listBox1.               SelectedItem as Product);
+            dataProduct.RemoveProduct(listBox1.SelectedItem as Product);
+            
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -139,11 +140,12 @@ namespace BakeryCafe.View
         private async void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             RezultLabel.Text = "";
-
-            if (listBox2.SelectedIndex < 4)
+             
+            if (listBox2.SelectedIndex < 4 )
             {
                 groupBox1.Visible = true;
                 groupBox2.Visible = false;
+                groupBox3.Visible = false;
                 comboBoxManuf.Items.Clear();
                 (await data.GetListManufAsync()).ForEach(c => comboBoxManuf.Items.Add(c.ManufacturerName));
                 comboBoxManuf.SelectedIndex = 0;
@@ -192,21 +194,7 @@ namespace BakeryCafe.View
                 label6.Visible = false;
                 numericUpDownFinish.Visible = false;
             }
-            if (listBox2.SelectedIndex == 6)
-            {
-                groupBox1.Visible = false;
-                groupBox2.Visible = false;
-                groupBox3.Location = new System.Drawing.Point(310, 320);
-                tabPage2.Controls.Add(groupBox3);
-                groupBox3.Visible = true;
-                DateTime min = await data.GetCMinDateAsync("");
-                DateTime max = await data.GetCMaxDateAsync("");
-                dateTimePicker1.MinDate = min;
-                dateTimePicker1.MaxDate = max;
-                dateTimePicker2.MinDate = min;
-                dateTimePicker2.MaxDate = max;
-                dateTimePicker2.Value = dateTimePicker2.MaxDate;
-            }
+          
         }
 
         private async void ComboBoxManuf_SelectedIndexChanged(object sender, EventArgs e)
@@ -246,6 +234,8 @@ namespace BakeryCafe.View
                 case 6:
                     RezultLabel.Text += "Результат: " + Environment.NewLine + "Доля товаров в интервале дат изготовления: " + (await dataReports.getDateWithinLimits(dateTimePicker1.Value, dateTimePicker2.Value));
                     break;
+              
+
             }
         }
     }

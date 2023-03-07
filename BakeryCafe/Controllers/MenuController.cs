@@ -76,6 +76,20 @@ namespace BakeryCafe.Controllers
             }
             return rez;
         }
+
+        public List<Product> GetWeigt(string manuf, int startW, int finishW)
+        {
+            List<Product> listProd = null;
+            if (manuf == "Все производители")
+            {
+                listProd = _context.Products.ToList();
+            }
+            else
+            {
+                listProd = _context.Products.Include("Manufacturers").Where(p => p.Manufacturers.Any(m => m.ManufacturerName.Contains(manuf))).ToList();
+            }
+            return listProd.Where(p => p.weight > startW && p.weight < finishW).ToList();
+        }
     }
-}
+}   
 

@@ -26,7 +26,7 @@ namespace BakeryCafe.Model
         public override string ToString() {
 
             string manufName =  dataProduct.GetProdManuf(this);
-             return $"{productName}({manufName}) Вес: {weight} Цена: {price}" + Environment.NewLine;
+             return $"{productName}({manufName}) Вес: {weight} Цена: {price} Дата: {dateOfManuf}" + Environment.NewLine;
            // return $"{productName}( {manufName}) Дата: {dateOfManuf} Цена: {price} " + Environment.NewLine;
         }
     }

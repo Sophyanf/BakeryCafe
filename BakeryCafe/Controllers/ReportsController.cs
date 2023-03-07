@@ -1,11 +1,13 @@
 ﻿using BakeryCafe.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace BakeryCafe.Controllers
 {
@@ -97,6 +99,24 @@ namespace BakeryCafe.Controllers
             var prodList = await dataProduct.GetListProductAsync("");
             int countProd = prodList.Where(p => p.dateOfManuf >= minPrice && p.dateOfManuf <= maxPrice).Count();
             return ((decimal)countProd / prodList.Count).ToString("0.##");
+        }
+
+        public async Task<string> getDateWithinLimitsAverPrise(DateTime minPrice, DateTime maxPrice)  // цена в заданых пределах
+        {
+            var prodList = (await dataProduct.GetListProductAsync("")).Where(p => p.dateOfManuf >= minPrice && p.dateOfManuf <= maxPrice);
+            decimal sumProd = 0;
+            prodList.ToList().ForEach(p => sumProd += p.price);
+           
+            return ((decimal)sumProd / prodList.Count()).ToString("0.##");
+        }
+
+        public async Task<string> getExpAverPrice(string DataName)  // Получить список продуктов
+        {
+            var prodList = await dataProduct.GetListProductAsync("");
+            decimal AverPriceManuf = _context.Manufacturer.FirstOrDefault(m => m.ManufacturerName== DataName).AveragePriceMan;
+            string rez = "";
+            prodList.Where(p => p.price > AverPriceManuf).ToList().ForEach(p => rez += p.productName + Environment.NewLine);
+            return rez;
         }
     }
 }

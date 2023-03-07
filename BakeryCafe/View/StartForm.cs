@@ -44,5 +44,25 @@ namespace BakeryCafe.View
         {
             new MenuForm().ShowDialog();
         }
+
+        private void pictureBox11_Click(object sender, EventArgs e)
+        {
+            new InfoForm().ShowDialog();
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new InfoForm().ShowDialog();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new AdminForm().ShowDialog();
+        }
+
+        private void pictureBox12_Click(object sender, EventArgs e)
+        {
+            new MenuForm().ShowDialog();
+        }
     }
 }

@@ -129,6 +129,21 @@ public async Task<decimal> GetCMinPriceAsync(string manufName)  // Минима�
             else { result = dataProduct.load("", manufName); }
             return result.Max(p => p.price);
         }
+        public async Task<int> GetCMinWeightAsync(string manufName)  // Минимальная стоимость
+        {
+            List<Product> result = null;
+            if (manufName == "") { result = await dataProduct.GetListProductAsync(""); }
+            else { result = dataProduct.load("", manufName); }
+            return result.Min(p => p.weight);
+        }
+
+        public async Task<int> GetCMaxWeightAsync(string manufName)  // Максимальная стоимость
+        {
+            List<Product> result = null;
+            if (manufName == "") { result = await dataProduct.GetListProductAsync(""); }
+            else { result = dataProduct.load("", manufName); }
+            return result.Max(p => p.weight);
+        }
         public async Task<DateTime> GetCMinDateAsync(string manufName)  // Минимальная стоимость
         {
             List<Product> result = null;
@@ -223,13 +238,33 @@ public async Task<decimal> GetCMinPriceAsync(string manufName)  // Минима�
                 }
           }*/
 
-        public async void fillAverPrice ()  // заполнение средней стоимости (можно удалить)
+        public async void fillAverPrice (string dataType, string dataName)  // расчет средней стоимости
         {
             var list = await _context.CategoryBakeries.ToListAsync();
-            for (int i = 0;i < list.Count; i++)
+            CategoryBakery resultCat = null;
+            Manufacturer rezultManuf= null;
+            switch (dataType)
             {
-                list[i].AveragePrice = await AveragePriceAsync("categoryBakery", list[i].CategoryName);
+                case "categoryBakery":
+                    await Task.Run(() =>
+                    {
+                        resultCat = (CategoryBakery)_context.CategoryBakeries.FirstOrDefault(c => c.CategoryName == dataName);
+                    });
+                   
+                    break;
+
+
+                case "manufacturer":
+                    await Task.Run(() =>
+                    {
+                        rezultManuf = _context.Manufacturer.FirstOrDefault(s => s.ManufacturerName == dataName);
+                    });
+                    break;
+
+                default: break; ;
             }
+
+            resultCat.AveragePrice = await AveragePriceAsync(dataType, dataName);
             _context.SaveChanges();
         }
     }

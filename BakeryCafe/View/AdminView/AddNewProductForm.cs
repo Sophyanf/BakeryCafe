@@ -3,7 +3,9 @@ using BakeryCafe.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -56,11 +58,14 @@ namespace BakeryCafe.View.AdminView
             Manufacturer manufacturer = await selectManufAsinc();
 
             var res = await dataProduct.AddProductAsync(newProduct, category, manufacturer);
+           
             if (res == false)
             {
                 MessageBox.Show("Ошибка!!! Проверьте продукт");
                 return;
             }
+            data.fillAverPrice(categoryData, categoryComboBox.Text);
+            data.fillAverPrice(manufData, manyfComboBox.Text);
             DialogResult = DialogResult.OK;
         }
 
@@ -79,6 +84,7 @@ namespace BakeryCafe.View.AdminView
                     MessageBox.Show("Ошибка!!! Проверьте категорию");
                 }
             }
+            
             return category;
         }
 
@@ -97,6 +103,7 @@ namespace BakeryCafe.View.AdminView
                     MessageBox.Show("Ошибка!!! Проверьте производителя");
                 }
             }
+            
             return manufacturer;
         }
     }

@@ -12,6 +12,9 @@ namespace BakeryCafe.Controllers
     internal class ProductController
     {
         private readonly AppDbContext _context;
+        public static string manufData = "manufacturer";
+        public static string categoryData = "categoryBakery";
+        private DataProductController data = DataProductController.Instance;
         public static ProductController Instance { get => ProductControllerCreate.instance; }
         private ProductController()
         {
@@ -45,6 +48,7 @@ namespace BakeryCafe.Controllers
                 {
                     CategoryBakery oldCategory = _context.Products.Include("CategoryBakerys").FirstOrDefault(p => p.ID == product.ID).CategoryBakerys;
                     _context.CategoryBakeries.Include("Products").FirstOrDefault(c => c.ID == category.ID).Products.Add(product);
+                    data.fillAverPrice(categoryData, oldCategory.CategoryName);
                     await _context.SaveChangesAsync();
                 }
                 if (manuf != null)
@@ -52,6 +56,7 @@ namespace BakeryCafe.Controllers
                     Manufacturer oldManuf = _context.Products.Include("Manufacturers").FirstOrDefault(p => product.ID == p.ID).Manufacturers.FirstOrDefault();
                     _context.Manufacturer.Include("Products").FirstOrDefault(c => c.ID == oldManuf.ID).Products.Remove(product);
                     _context.Manufacturer.Include("Products").FirstOrDefault(c => c.ID == manuf.ID).Products.Add(product);
+                    data.fillAverPrice(manufData, oldManuf.ManufacturerName);
                     await _context.SaveChangesAsync();
                 }
                 return true;
@@ -64,8 +69,14 @@ namespace BakeryCafe.Controllers
 
         public async void RemoveProduct (Product prod)   // Удаление продукта
         {
+            CategoryBakery oldCategory = _context.Products.Include("CategoryBakerys").FirstOrDefault(p => p.ID == prod.ID).CategoryBakerys;
+           
+            Manufacturer oldManuf = _context.Products.Include("Manufacturers").FirstOrDefault(p => prod.ID == p.ID).Manufacturers.FirstOrDefault();
+            
             var result =  _context.Products.FirstOrDefault(p => p.ID== prod.ID);
             _context.Products.Remove(result);
+            data.fillAverPrice(categoryData, oldCategory.CategoryName);
+            data.fillAverPrice(manufData, oldManuf.ManufacturerName);
             await _context.SaveChangesAsync();
         }
 

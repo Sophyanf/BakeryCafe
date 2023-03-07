@@ -95,6 +95,12 @@
     <Compile Include="View\AdminView\EditProductForm.Designer.cs">
       <DependentUpon>EditProductForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\InfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\InfoForm.Designer.cs">
+      <DependentUpon>InfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\AdminView\EditProductForm.resx">
       <DependentUpon>EditProductForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\InfoForm.resx">
+      <DependentUpon>InfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>

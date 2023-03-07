@@ -47,6 +47,8 @@ namespace BakeryCafe.View.AdminView
         private async void button2_Click(object sender, EventArgs e)
         {
             await fillProdukt();
+            data.fillAverPrice(categoryData, categoryComboBox.Text);
+            data.fillAverPrice(manufData, manyfComboBox.Text);
         }
 
         private async Task<bool> fillProdukt ()
