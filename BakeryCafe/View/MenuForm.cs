@@ -80,12 +80,12 @@ namespace BakeryCafe.View
        
 
       
-        private void ProductListboxFill (string categoryname)
+        private async void ProductListboxFill (string categoryname)
         {
             comboBox1.SelectedIndex = 0;
             listBox1.Items.Clear();
           if(categoryComboBox.SelectedIndex == 0) { categoryname = ""; }
-            dataMenu.GetSortProductsList(categoryname, radioButtonChange).ForEach(c => listBox1.Items.Add(c));
+           ( await dataMenu.GetSortProductsList(categoryname, radioButtonChange)).ForEach(c => listBox1.Items.Add(c));
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)

@@ -139,19 +139,26 @@ namespace BakeryCafe.Controllers
                 result = _context.Products.Include("Manufacturers").FirstOrDefault(p => prod.ID == p.ID).Manufacturers.FirstOrDefault().ManufacturerName;
             return result;
         }
-        public List<Product> load(String category, String manuf)       // отбор по производителям/категориям для комбобоков 
-        {
-            if (category == "")
-                    return _context.Products
+        public async Task<List<Product>> load(String category, String manuf)       // отбор по производителям/категориям для комбобоков 
+        { 
+
+            List<Product> result = null;
+            await Task.Run(() =>
+            {
+                if (category == "")
+                    result = _context.Products
                     .Include("Manufacturers")
                     .Where(p => p.Manufacturers.Any(m => m.ManufacturerName.Contains(manuf)))
                     .ToList();
 
-            return _context.Products
+                result = _context.Products
                     .Include("CategoryBakerys")
                     .Include("Manufacturers")
                     .Where(p => p.Manufacturers.Any(m => m.ManufacturerName.Contains(manuf)) && p.CategoryBakerys.CategoryName == category)
                     .ToList();
+
+            });
+            return result;
         }
 
 

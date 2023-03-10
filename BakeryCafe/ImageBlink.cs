@@ -13,7 +13,6 @@ namespace BakeryCafe
     {
        
         public ImageList ImageList;
-        public Image image;
 
 
         public ImageBlink(ImageList imageList)

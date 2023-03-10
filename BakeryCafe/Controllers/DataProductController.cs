@@ -34,30 +34,33 @@ namespace BakeryCafe.Controllers
         {
             List<Product> result = null;
             decimal sumPrice = 0;
-            switch (dataType)
-            {
-                case "categoryBakery":
-                    result = _context.Products
-                      .Include("CategoryBakerys")
-                      .Where(p => p.CategoryBakerys.CategoryName == dataName)
+            await Task.Run(() =>
+                {
+                switch (dataType)
+                {
+                    case "categoryBakery":
+                        result = _context.Products
+                          .Include("CategoryBakerys")
+                          .Where(p => p.CategoryBakerys.CategoryName == dataName)
+                          .ToList();
+
+                        break;
+
+                    case "manufacturer":
+                        /* await Task.Run(() =>
+                         {*/
+                        result = _context.Products
+                      .Include("Manufacturers")
+                      .Where(p => p.Manufacturers.Any(m => m.ManufacturerName == dataName))
                       .ToList();
 
-                    break;
+                        // });
 
-                case "manufacturer":
-                    /* await Task.Run(() =>
-                     {*/
-                    result = _context.Products
-                  .Include("Manufacturers")
-                  .Where(p => p.Manufacturers.Any(m => m.ManufacturerName == dataName))
-                  .ToList();
-                    
-                   // });
-                      
-                    break;
+                        break;
 
-                default: break;
-            }
+                    default: break;
+                }
+            });
             try
             {
                 result.ForEach(p => sumPrice += p.price);
@@ -118,7 +121,7 @@ public async Task<decimal> GetCMinPriceAsync(string manufName)  // Минима�
         {
             List<Product> result = null;
             if (manufName == "") { result = await dataProduct.GetListProductAsync(""); }
-            else { result = dataProduct.load("", manufName); }
+            else { result = await dataProduct.load("", manufName); }
             return result.Min(p => p.price);
         }
 
@@ -126,67 +129,40 @@ public async Task<decimal> GetCMinPriceAsync(string manufName)  // Минима�
         {
             List<Product> result = null;
             if (manufName == "") { result = await dataProduct.GetListProductAsync(""); }
-            else { result = dataProduct.load("", manufName); }
+            else { result = await dataProduct.load("", manufName); }
             return result.Max(p => p.price);
         }
-        public async Task<int> GetCMinWeightAsync(string manufName)  // Минимальная стоимость
+        public async Task<int> GetCMinWeightAsync(string manufName)  // Минимальная вес
         {
             List<Product> result = null;
             if (manufName == "") { result = await dataProduct.GetListProductAsync(""); }
-            else { result = dataProduct.load("", manufName); }
+            else { result = await dataProduct.load("", manufName); }
             return result.Min(p => p.weight);
         }
 
-        public async Task<int> GetCMaxWeightAsync(string manufName)  // Максимальная стоимость
+        public async Task<int> GetCMaxWeightAsync(string manufName)  // Максимальный вес
         {
             List<Product> result = null;
             if (manufName == "") { result = await dataProduct.GetListProductAsync(""); }
-            else { result = dataProduct.load("", manufName); }
+            else { result = await dataProduct.load("", manufName); }
             return result.Max(p => p.weight);
         }
-        public async Task<DateTime> GetCMinDateAsync(string manufName)  // Минимальная стоимость
+        public async Task<DateTime> GetCMinDateAsync(string manufName)  // Минимальная дата
         {
             List<Product> result = null;
             if (manufName == "") { result = await dataProduct.GetListProductAsync(""); }
-            else { result = dataProduct.load("", manufName); }
+            else { result = await dataProduct.load("", manufName); }
             return result.Min(p => p.dateOfManuf);
         }
 
-        public async Task<DateTime> GetCMaxDateAsync(string manufName)  // Максимальная стоимость
+        public async Task<DateTime> GetCMaxDateAsync(string manufName)  // Максимальная дата
         {
             List<Product> result = null;
             if (manufName == "") { result = await dataProduct.GetListProductAsync(""); }
-            else { result = dataProduct.load("", manufName); }
+            else { result = await dataProduct.load("", manufName); }
             return result.Max(p => p.dateOfManuf);
         }
 
-
-
-        /* public async Task<IDataProduct> GetProductDataAsync(string dataName, string dataType)   //
-         {
-             IDataProduct result = null;
-             switch (dataType)
-             {
-                 case "categoryBakery":
-
-                     await Task.Run(() =>
-                     {
-                         result = _context.CategoryBakeries.Include("Products").FirstOrDefault(s => s.CategoryName == dataName);
-
-                     });
-                     return result;
-
-                 case "manufacturer":
-                     await Task.Run(() =>
-                     {
-                         result = _context.Manufacturer.Include("Products").FirstOrDefault(s => s.ManufacturerName == dataName);
-                     });
-                     return result;
-
-                 default:
-                     return result;
-             }
-         }*/
 
         public async Task<List<CategoryBakery>> GetListCategoryAsync()          //Список категорий (по возможности заменить на GetDataProductAsync(string dataType) ))
         {

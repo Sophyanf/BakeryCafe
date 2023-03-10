@@ -29,7 +29,7 @@ namespace BakeryCafe.Controllers
 
         public async Task<decimal> ManufFromAllProducts(string DataName)  // Получить список продуктов
         {
-            int count = dataProduct.load("",DataName).Count;
+            int count = (await dataProduct.load("",DataName)).Count;
             int countProd = await dataProduct.GetCountProductAsync();
             return (decimal)count / countProd;
         }
@@ -43,7 +43,7 @@ namespace BakeryCafe.Controllers
             List<Manufacturer> manufacturers = await data.GetListManufAsync();
             foreach (Manufacturer manufacturer in manufacturers)
             {
-                int count = dataProduct.load("", manufacturer.ManufacturerName).Count;
+                int count = (await dataProduct.load("", manufacturer.ManufacturerName)).Count;
                 rez += manufacturer.ManufacturerName + " - " + ((decimal)count/countProd).ToString("0.##") + Environment.NewLine;
                 manufRating.Add((decimal)count / countProd);
                 if (manufacturer.ManufacturerName == DataName) { rezDec = (decimal)count / countProd; }
@@ -58,7 +58,7 @@ namespace BakeryCafe.Controllers
 
         public async Task<string> expensiveManufPrice(string DataName, decimal priceControl)  // дорогие товары прозводителя
         {
-            List<Product> prod = dataProduct.load("", DataName);
+            List<Product> prod = await dataProduct.load("", DataName);
             int countProd = prod.Count;
             int countRez = prod.Where(p => p.price > priceControl).Count();
             string rez = "";
@@ -71,7 +71,7 @@ namespace BakeryCafe.Controllers
 
         public async Task<string> cheaperManufPrice(string DataName, decimal priceControl)  // дешевые товары прозводителя
         {
-            List<Product> prod  = dataProduct.load("", DataName);
+            List<Product> prod  = await dataProduct.load("", DataName);
             int countProd = prod.Count;
             int countRez = prod.Where(p => p.price < priceControl).Count();
             string rez = "";

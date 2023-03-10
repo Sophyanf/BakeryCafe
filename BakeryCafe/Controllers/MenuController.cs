@@ -54,9 +54,9 @@ namespace BakeryCafe.Controllers
             return rez;
         }
 
-        public List<Product> GetSortProductsList(string categoriname, int radioButNum)
+        public async Task<List<Product>> GetSortProductsList(string categoriname, int radioButNum)
         {
-            List<Product> rez = dataProduct.load(categoriname, "");
+            List<Product> rez = await dataProduct.load(categoriname, "");
 
             switch(radioButNum)
             {

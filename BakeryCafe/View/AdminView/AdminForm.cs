@@ -105,7 +105,7 @@ namespace BakeryCafe.View
         {
             if (manuf == "Все производители") manuf= "";                       //подумать правильное условие если успею
             if (category == "Все категории") category = "";
-            return dataProduct.load(category, manuf);
+            return await dataProduct.load(category, manuf);
         } 
 
         private void button2_Click(object sender, EventArgs e)
